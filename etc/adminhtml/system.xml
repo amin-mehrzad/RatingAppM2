@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="ratingapp" translate="label" sortOrder="180">
+            <label>Rating App</label>
+        </tab>
+        <section id="ratingapp_tab" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Rate and Review Setting</label>
+            <tab>ratingapp</tab>
+            <resource>RatingApp_Rate::ratingapp_setting</resource>
+            <group id="ratingapp_setting" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Setup Configuration</label>
+                <field id="ratingapp_secretKey" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API Key</label>
+                    <validate>required-entry</validate>
+                    <comment><![CDATA[
+                            <a href="https://ratingapp.com" target="_blank">
+                                If you don't have a key click here  to register and get your key for FREE.
+                            </a>
+                        ]]>                    </comment>
+                </field>
+                <field id="ratingapp_publicKey" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Secret Key</label>
+                    <validate>required-entry</validate>
+                    <comment><![CDATA[
+                            <a href="https://ratingapp.com" target="_blank">
+                                If you don't have a key click here  to register and get your key for FREE.
+                            </a>
+                        ]]>                    </comment>
+                </field>
+                <field id="ratingapp_enable" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="ratingapp_frontstore" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Front Store Configuration</label>
+
+                <field id="ratingapp_show_review" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="ratingapp_show_star_product" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="ratingapp_show_star_category" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="ratingapp_sync" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Data Syncing Configuration</label>
+                <field id="ratingapp_sync_statuse" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Data Sync Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="ratingapp_sync_statuse" translate="label" type="multiselect" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Data Syncing Status</label>
+                    <source_model>Magento\Sales\Model\ResourceModel\Order\Status\Collection</source_model>
+                    <validate>validate-select</validate>
+                    <can_be_empty>0</can_be_empty>
+                </field>
+                <field id="ratingapp_sync_delay" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Survey Email Delay</label>
+                    <source_model>Magento\Sales\Model\ResourceModel\Order\Status\Collection</source_model>
+                    <validate>required-entry validate-number</validate>
+                    <can_be_empty>0</can_be_empty>
+                    <comment><![CDATA[
+                                Enter <b>Hours</b> of delay of sending survey email, after order status changed.
+                            ]]>
+                    </comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

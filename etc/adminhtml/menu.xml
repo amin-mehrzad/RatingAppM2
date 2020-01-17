@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="RatingApp_Rate::ratingapp" title="RATING" module="RatingApp_Rate" sortOrder="40" resource="RatingApp_Rate::ratingapp"/>
+        <add id="RatingApp_Rate::ratingapp_rate" title="Rating App Configuration" module="RatingApp_Rate" sortOrder="20"   parent="RatingApp_Rate::ratingapp" resource="RatingApp_Rate::ratingapp_rate"/>
+        <add id="RatingApp_Rate::ratingapp_Rateconfiguration" title="Rating App Configuration" module="RatingApp_Rate" sortOrder="99" parent="RatingApp_Rate::ratingapp_rate"  resource="RatingApp_Rate::ratingapp_configuration"  action="adminhtml/system_config/edit/section/ratingapp_tab"/>
+    </menu>
+</config>
