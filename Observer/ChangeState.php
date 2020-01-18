@@ -6,9 +6,9 @@ use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\App\ObjectManager;
 use Magento\Sales\Api\OrderRepositoryInterface;
-use RatingApp\Api\Helper\Data;
-use RatingApp\Api\Api\ApiManagementInterface;
-use \Magento\Framework\Stdlib\CookieManagerInterface;
+use RatingApp\Rate\Helper\Data;
+//use RatingApp\Rate\Api\ApiManagementInterface;
+//use \Magento\Framework\Stdlib\CookieManagerInterface;
 
 class ChangeState implements ObserverInterface
 {
@@ -18,7 +18,7 @@ class ChangeState implements ObserverInterface
     protected $_order;
     protected $_state;
     protected $helper;
-    protected $_cookieManager;
+   // protected $_cookieManager;
     protected $orderRepository;
     protected $orderManagement;
     protected $_checkoutSession;
@@ -27,12 +27,12 @@ class ChangeState implements ObserverInterface
 
 public function __construct(
     \Magento\Sales\Api\OrderManagementInterface $orderManagement,
-    ApiManagementInterface $apiManagement,
+   // ApiManagementInterface $apiManagement,
     \Magento\Backend\Model\Session\Quote $sessionQuote,
     \Magento\Sales\Api\Data\OrderInterface $order,
     \Magento\Directory\Model\CountryFactory $countryFactory,
     \Magento\Framework\App\State $state,
-    CookieManagerInterface $cookieManager,
+  //  CookieManagerInterface $cookieManager,
     OrderRepositoryInterface $orderRepository,
     Data $helper,
     \Magento\Checkout\Model\Session $checkoutSession,
@@ -41,13 +41,13 @@ public function __construct(
 
     ) {
 
-        $this->_apiManagement = $apiManagement;
+       // $this->_apiManagement = $apiManagement;
         $this->_order = $order;
         $this->_sessionQuote = $sessionQuote;
         $this->_countryFactory = $countryFactory;
         $this->_state = $state;
         $this->helper = $helper;
-        $this->_cookieManager = $cookieManager;
+       //$this->_cookieManager = $cookieManager;
         $this->orderRepository = $orderRepository;
         $this->quoteFactory = $quoteFactory;
         $this->orderManagement = $orderManagement;
@@ -56,11 +56,11 @@ public function __construct(
     }
 
 
-    private function _addFieldToOrderData($strFieldName, $strValue)
-    {
+    // private function _addFieldToOrderData($strFieldName, $strValue)
+    // {
 
-        $this->_session_data[$strFieldName] = $strValue;
-    }
+    //     $this->_session_data[$strFieldName] = $strValue;
+    // }
 
     /**
      * Get the Shipping information of order
@@ -69,10 +69,10 @@ public function __construct(
      *
      * @return Shipping information
      */
-    private function _getSessionData($order)
+    private function _getEmailData($order)
     {
  
-            $this->_session_data=array(
+            $this->_email_data=array(
                 "profile"   =>[
                     "firstname"         =>"",
                     "lastname"          =>"",
@@ -140,15 +140,31 @@ public function __construct(
 
     $orderUpdate = $order->getUpdatedAt();
 
-    $avcCookie = $this->_cookieManager->getCookie('aspire_token');
-    $session_id = $this->_cookieManager->getCookie('session_id');
+    //$avcCookie = $this->_cookieManager->getCookie('aspire_token');
+    //$session_id = $this->_cookieManager->getCookie('session_id');
 
     $cyaOrderHold = $this->_checkoutSession->getCyaOrderHold();
 
-    $this->_getSessionData($order);
-    $res = $this->_apiManagement->change_state($this->_session_data);
+    $this->_getEmailData($order);
 
-    error_log($res);
+    $key = $this->helper->ratingApp_apiKey();
+    $secretKey = $this->helper->ratingApp_secretKey();
+    $session_data["website_key"]= $key;
+         $url = 'http://amin.ngrok.io/emails';
+        
+        $authorization = "Authorization: Bearer ".$secretKey;
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS,json_encode($this->_email_data));
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        $result = curl_exec($ch);
+        curl_close($ch);
+   // $res = $this->_apiManagement->change_state($this->_session_data);
+
+    error_log($result);
 
     }
 }
