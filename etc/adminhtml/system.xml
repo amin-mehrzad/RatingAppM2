@@ -36,13 +36,13 @@
                         ]]>
                     </comment>
                 </field>
-                <field id="token" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="token" translate="label" type="textarea" sortOrder="4" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>RatingApp Token</label>
-                    <frontend_model>RatingApp\Rate\Block\Adminhtml\System\Config\Token</frontend_model>
+                    <!-- <frontend_model>RatingApp\Rate\Block\Adminhtml\System\Config\RefreshToken</frontend_model> -->
                 </field>
-                <field id="refresh_token" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="refresh_token" translate="label" type="textarea" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>RatingApp Refresh Token</label>
-                    <frontend_model>RatingApp\Rate\Block\Adminhtml\System\Config\RefreshToken</frontend_model>
+                    <!-- <frontend_model>RatingApp\Rate\Block\Adminhtml\System\Config\RefreshToken</frontend_model> -->
                 </field>
             </group>
             <group id="ratingapp_frontstore" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
