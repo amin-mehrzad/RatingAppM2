@@ -85,9 +85,9 @@ class ChangeState implements ObserverInterface
             $this->_getEmailData($order);
 
             $appToken = $this->helper->ratingApp_token();
+            $authorization = "Authorization: Bearer " . $appToken;
 
             $url = 'http://amin.ngrok.io/API/emails';
-            $authorization = "Authorization: Bearer " . $appToken;
 
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));

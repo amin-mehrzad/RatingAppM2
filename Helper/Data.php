@@ -6,6 +6,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
     protected $_scopeConfig;
     protected $_reportCollectionFactory;
+    protected $configurable;
+    protected $grouped;
 
     const XML_PATH_RATING_APP_USERNAME = 'ratingapp_tab/ratingapp_setting/ratingapp_username';
     const XML_PATH_RATING_APP_PASSWORD = 'ratingapp_tab/ratingapp_setting/ratingapp_password';
@@ -15,18 +17,22 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
         \Magento\Reports\Model\ResourceModel\Product\Sold\CollectionFactory $reportCollectionFactory,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\ConfigurableProduct\Model\Product\Type\Configurable $configurable,
+        Magento\GroupedProduct\Model\Product\Type\Grouped $grouped
 
     ) {
         $this->_reportCollectionFactory = $reportCollectionFactory;
         parent::__construct($context);
         $this->_scopeConfig = $scopeConfig;
+        $this->configurable = $configurable;
+        $this->grouped = $grouped;
     }
     public function ratingApp_username()
     {
         return $this->_scopeConfig->getValue(self::XML_PATH_RATING_APP_USERNAME);
     }
-    
+
     public function ratingApp_password()
     {
         return $this->_scopeConfig->getValue(self::XML_PATH_RATING_APP_PASSWORD);
@@ -42,8 +48,23 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->_scopeConfig->getValue(self::XML_PATH_RATING_APP_REFRESH_TOKEN);
     }
 
+    public function getParentId($childId)
+    {
+        /* for simple product of configurable product */
+        $product = $this->configurable->getParentIdsByChild($childId);
+        if (isset($product[0])) {
+            return $product[0];
+        }
+
+        /* for simple product of Group product */
+        $parentIds = $this->grouped->getParentIdsByChild($childId);
+        /* or for Group/Bundle Product */
+        $product->getTypeInstance()->getParentIdsByChild($childId);
+    }
 
 
+
+    
     // public function ratingApp_refreshToken()
     // {
     //     $username = $this->ratingApp_username();
