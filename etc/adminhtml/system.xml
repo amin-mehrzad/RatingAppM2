@@ -48,25 +48,25 @@
             <group id="ratingapp_frontstore" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Front Store Configuration</label>
                 <field id="ratingapp_show_review" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enabled</label>
+                    <label>Show Review</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="ratingapp_show_star_product" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enabled</label>
+                    <label>Show Stars in Product Page</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="ratingapp_show_star_category" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enabled</label>
+                    <label>Show Stars in Category Page</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
             <group id="ratingapp_sync" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Data Syncing Configuration</label>
-                <field id="ratingapp_sync_statuse" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="ratingapp_sync_enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Data Sync Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="ratingapp_sync_statuse" translate="label" type="multiselect" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="ratingapp_sync_status" translate="label" type="multiselect" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Data Syncing Status</label>
                     <source_model>Magento\Sales\Model\ResourceModel\Order\Status\Collection</source_model>
                     <validate>validate-select</validate>
@@ -74,7 +74,6 @@
                 </field>
                 <field id="ratingapp_sync_delay" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Survey Email Delay</label>
-                    <source_model>Magento\Sales\Model\ResourceModel\Order\Status\Collection</source_model>
                     <validate>required-entry validate-number</validate>
                     <can_be_empty>0</can_be_empty>
                     <comment>

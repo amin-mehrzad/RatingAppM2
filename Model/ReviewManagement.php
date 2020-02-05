@@ -31,7 +31,7 @@ class ReviewManagement
         $appToken = $this->helper->ratingApp_token();
         $authorization = "Authorization: Bearer " . $appToken;
 
-        $url = 'http://amin.ngrok.io/API/pushQueue/' . $param;
+        $url = 'https://api03.validage.com/API/pushQueue/' . $param;
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
@@ -55,14 +55,10 @@ class ReviewManagement
         $decodedResult = json_decode($result, true);
         $reviewData = $decodedResult["data"]["reviews"];
         // getCID()
-
-
-        $parentID = $this->helper->getParentId($reviewData['productID']);
-
-
         $response = false;
 
-        $response = $this->appendReview($reviewData['productID'],
+        $response = $this->appendReview(
+            $reviewData['productID'],
             $reviewData['reviewNickname'],
             $reviewData['reviewTitle'],
             $reviewData['reviewDescribtion'],
@@ -91,8 +87,8 @@ class ReviewManagement
 
         // $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         //  $_review = $objectManager->get("Magento\Review\Model\Review")
-
-        $this->review->setEntityPkValue($productId) //product Id
+        $reviewProductId = $this->helper->getParentId($productId); // check if product is not visible individualy, replace with the parent
+        $this->review->setEntityPkValue($reviewProductId) //product Id
             ->setStatusId(\Magento\Review\Model\Review::STATUS_PENDING) // pending/approved
             ->setTitle($reviewTitle)
             ->setDetail($reviewDetail)
@@ -121,7 +117,9 @@ class ReviewManagement
             '1' => 0 + $ratingValue,
             '2' => 5 + $ratingValue,
             '3' => 10 + $ratingValue,
-            // '4' => 15+$rating
+            '4' => 15 + $ratingValue
+
+            // todo - add logic to get raitings and indexes
         );
 
         foreach ($ratingOptions as $ratingId => $optionIds) {

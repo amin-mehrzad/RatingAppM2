@@ -2,10 +2,12 @@
 
 namespace RatingApp\Rate\Helper;
 
+use Magento\Sales\Model\Order;
+
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
     protected $_scopeConfig;
-    protected $_reportCollectionFactory;
+   // protected $_reportCollectionFactory;
     protected $configurable;
     protected $grouped;
 
@@ -13,16 +15,17 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     const XML_PATH_RATING_APP_PASSWORD = 'ratingapp_tab/ratingapp_setting/ratingapp_password';
     const XML_PATH_RATING_APP_TOKEN = 'ratingapp_tab/ratingapp_setting/token';
     const XML_PATH_RATING_APP_REFRESH_TOKEN = 'ratingapp_tab/ratingapp_setting/refresh_token';
+    const XML_PATH_RATING_APP_SYNC_STATUS = 'ratingapp_tab/ratingapp_sync/ratingapp_sync_status';
 
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
-        \Magento\Reports\Model\ResourceModel\Product\Sold\CollectionFactory $reportCollectionFactory,
+      //  \Magento\Reports\Model\ResourceModel\Product\Sold\CollectionFactory $reportCollectionFactory,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\ConfigurableProduct\Model\Product\Type\Configurable $configurable,
-        Magento\GroupedProduct\Model\Product\Type\Grouped $grouped
+        \Magento\GroupedProduct\Model\Product\Type\Grouped $grouped
 
     ) {
-        $this->_reportCollectionFactory = $reportCollectionFactory;
+       // $this->_reportCollectionFactory = $reportCollectionFactory;
         parent::__construct($context);
         $this->_scopeConfig = $scopeConfig;
         $this->configurable = $configurable;
@@ -48,23 +51,35 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         return $this->_scopeConfig->getValue(self::XML_PATH_RATING_APP_REFRESH_TOKEN);
     }
 
+    public function ratingApp_syncStatus()
+    {
+        
+        $orderStatuses= $this->_scopeConfig->getValue(self::XML_PATH_RATING_APP_SYNC_STATUS , \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        return ($orderStatuses) ? array_map('strtolower', explode(',', $orderStatuses)) : [Order::STATE_COMPLETE];
+    }
+
     public function getParentId($childId)
     {
         /* for simple product of configurable product */
-        $product = $this->configurable->getParentIdsByChild($childId);
-        if (isset($product[0])) {
-            return $product[0];
-        }
+        $configurableParentId = $this->configurable->getParentIdsByChild($childId);
+        $groupedParentId = $this->grouped->getParentIdsByChild($childId);
+        if (isset($configurableParentId[0])) {
+            return $configurableParentId[0];
+        } else if (isset($groupedParentId[0])){
 
         /* for simple product of Group product */
-        $parentIds = $this->grouped->getParentIdsByChild($childId);
+        
+        return $groupedParentId[0] ;
         /* or for Group/Bundle Product */
-        $product->getTypeInstance()->getParentIdsByChild($childId);
+    //    $product->getTypeInstance()->getParentIdsByChild($childId);
+        } else {
+            return $childId;
+        }
     }
 
 
 
-    
+
     // public function ratingApp_refreshToken()
     // {
     //     $username = $this->ratingApp_username();
