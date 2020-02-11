@@ -63,6 +63,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         /* for simple product of configurable product */
         $configurableParentId = $this->configurable->getParentIdsByChild($childId);
         $groupedParentId = $this->grouped->getParentIdsByChild($childId);
+       // error_log("7777777777777777777".print_r($groupedParentId,true));
         if (isset($configurableParentId[0])) {
             return $configurableParentId[0];
         } else if (isset($groupedParentId[0])){
