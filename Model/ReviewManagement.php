@@ -11,15 +11,28 @@ class ReviewManagement
     protected $review;
     protected $rating;
     protected $helper;
+    protected $ratingCollectionF;
 
     public function __construct(
         Data $helper,
         Review $review,
-        Rating $rating
+        Rating $rating,
+        \Magento\Catalog\Model\Product $product,
+       // \Magento\Review\Model\Rating\Option $options,
+        \Magento\Review\Model\RatingFactory $ratingFactory
+
+        //  \Magento\Review\Model\ResourceModel\Rating\Option\CollectionFactory $ratingCollectionF
+
     ) {
         $this->helper = $helper;
         $this->review = $review;
         $this->rating = $rating;
+        $this->product = $product;
+       // $this->options = $options;
+        $this->_ratingFactory = $ratingFactory;
+
+        // $this->_ratingCollectionF = $ratingCollectionF;
+
     }
 
     /**
@@ -31,7 +44,7 @@ class ReviewManagement
         $appToken = $this->helper->ratingApp_token();
         $authorization = "Authorization: Bearer " . $appToken;
 
-       // $url = 'https://api03.validage.com/API/pushQueue/' . $param;
+        // $url = 'https://api03.validage.com/API/pushQueue/' . $param;
         $url = 'https://reviews-ai.ngrok.io/API/pushQueue/' . $param;
 
         $ch = curl_init($url);
@@ -65,7 +78,8 @@ class ReviewManagement
             $reviewData['reviewDescribtion'],
             $reviewData['reviewRating'],
             $reviewData['customerID'],
-            1
+            1,
+            $reviewData['productSKU']
         );
 
         while ($response == true) {
@@ -83,9 +97,15 @@ class ReviewManagement
     return $customerId;
     }*/
 
-    public function appendReview($productId, $customerNickName, $reviewTitle, $reviewDetail, $ratingValue, $customerId = null, $StoreId = 1)
+    public function appendReview($productId, $customerNickName, $reviewTitle, $reviewDetail, $ratingValue, $customerId = null, $StoreId = 1, $productSKU = null)
     {
-
+        if ($productSKU) {
+            $productIdBysku = $this->product->getIdBySku($productSKU);
+            if ($productIdBysku) {
+                $productId = $productIdBysku;
+                error_log($productId);
+            }
+        }
         // $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         //  $_review = $objectManager->get("Magento\Review\Model\Review")
         $reviewProductId = $this->helper->getParentId($productId); // check if product is not visible individualy, replace with the parent
@@ -103,6 +123,14 @@ class ReviewManagement
         error_log("Review Has been saved ");
 
         error_log("/////FOR SAVING RATING /////////");
+        //  $options = $this->_ratingCollectionF->create();
+        //  $options->addRatingFilter($item->getRatingId())->load();
+        // $optionData=$this->options->getRatingId();
+        // $optionData=$this->rating->getRatingId();
+        $ratingCollection = $this->_ratingFactory->create()->getResourceCollection()->load();
+        $ratingData = $ratingCollection->getData();
+        error_log(print_r($ratingData, true));
+
         ///////////////////////////////");
 
         /*
@@ -113,24 +141,27 @@ class ReviewManagement
         4 => array(1 => 16, 2 => 17, 3 => 18, 4 => 19, 5 => 20)   //rating
         );*/
 
-        //Lets Assume User Chooses Rating based on Rating Attributes called(quality,value,price,rating)
-        $ratingOptions = array(
-          //  '1' => 0 + $ratingValue,
-        //    '2' => 5 + $ratingValue,
-        //    '3' => 10 + $ratingValue,
-            '4' => 15 + $ratingValue
+        // foreach($ratingData as $ratingIndex => $ratingOption) { //Lets Assume User Chooses Rating based on Rating Attributes called(quality,value,price,rating)
+        // $ratingOptions = array(
+        //     //  '1' => 0 + $ratingValue,
+        //     //    '2' => 5 + $ratingValue,
+        //     //    '3' => 10 + $ratingValue,
+        //     '4' => 15 + $ratingValue,
 
-            // todo - add logic to get raitings and indexes
-        );
-
-        foreach ($ratingOptions as $ratingId => $optionIds) {
-            //  $objectManager->get("Magento\Review\Model\Rating")
-            $this->rating->setRatingId($ratingId)
-            //->setReviewId($_review->getId())
-                ->setReviewId($this->review->getId())
-                ->addOptionVote($optionIds, $productId);
-            error_log("-----------------------------------------------" . $ratingId);
-
+        //     // todo - add logic to get raitings and indexes
+        // );
+        //  }
+        //  foreach ($ratingOptions as $ratingId => $optionIds) {
+        foreach ($ratingData as $index => $ratingOption) {
+            // $this->rating->setRatingId($ratingId)
+            //     ->setReviewId($this->review->getId())
+            //     ->addOptionVote($optionIds, $productId);
+            if ($ratingOption['is_active']) {
+                $this->rating->setRatingId($ratingOption['rating_id'])
+                    ->setReviewId($this->review->getId())
+                    ->addOptionVote($index * 5 + $ratingValue, $productId);
+                  error_log("-----------------------------------------------" . $ratingValue);
+            }
         }
 
         //  error_log( "Latest REVIEW ID ===".$_review->getId()."</br>");
