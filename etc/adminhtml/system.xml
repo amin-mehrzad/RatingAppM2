@@ -69,8 +69,8 @@
                 <field id="ratingapp_sync_status" translate="label" type="multiselect" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Data Syncing Status</label>
                     <source_model>Magento\Sales\Model\ResourceModel\Order\Status\Collection</source_model>
-                    <validate>validate-select</validate>
-                    <can_be_empty>0</can_be_empty>
+                    <!-- <validate>validate-select</validate> -->
+                    <can_be_empty>1</can_be_empty>
                 </field>
                 <field id="ratingapp_sync_delay" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Survey Email Delay</label>

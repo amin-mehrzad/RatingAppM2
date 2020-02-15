@@ -6,4 +6,10 @@
 			<resource ref="anonymous"/>
 		</resources>
 	</route>
+	<route method="GET" url="/V1/ratingapp-rate/order">
+		<service class="RatingApp\Rate\Api\OrderManagementInterface" method="getOrder"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
 </routes>

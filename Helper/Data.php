@@ -55,7 +55,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         
         $orderStatuses= $this->_scopeConfig->getValue(self::XML_PATH_RATING_APP_SYNC_STATUS , \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-        return ($orderStatuses) ? array_map('strtolower', explode(',', $orderStatuses)) : [Order::STATE_COMPLETE];
+        //return ($orderStatuses) ? array_map('strtolower', explode(',', $orderStatuses)) : [Order::STATE_COMPLETE];
+        return array_map('strtolower', explode(',', $orderStatuses));
+       // return array($orderStatuses);
     }
 
     public function getParentId($childId)
