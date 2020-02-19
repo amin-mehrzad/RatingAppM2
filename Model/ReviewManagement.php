@@ -75,7 +75,7 @@ class ReviewManagement
             $reviewData['productID'],
             $reviewData['reviewNickname'],
             $reviewData['reviewTitle'],
-            $reviewData['reviewDescribtion'],
+            $reviewData['reviewDescription'],
             $reviewData['reviewRating'],
             $reviewData['customerID'],
             1,

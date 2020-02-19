@@ -61,7 +61,7 @@ class ChangeState implements ObserverInterface
             }
         }
 
-        error_log(print_r($this->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $this->productRepository->get($item->getSku())->getData('image'), true));
+        //error_log(print_r($this->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $this->productRepository->get($item->getSku())->getData('image'), true));
 
         // Determining Customer Logged-in or is Guest
         if ($order->getCustomerIsGuest()) {
@@ -103,6 +103,11 @@ class ChangeState implements ObserverInterface
 
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
+		error_log($this->helper->ratingApp_syncEnabled());
+		if(!$this->helper->ratingApp_syncEnabled()){
+			
+				return false;
+		}
         error_log('>>>>>>>>>>>>>>>> RatingAPP Observer Triggers <<<<<<<<<<<<<<<<<<<<<<');
 
         // error_log(print_r($this->helper->ratingApp_syncStatus(), true));
@@ -185,7 +190,8 @@ class ChangeState implements ObserverInterface
          //   return $result;
 
 
-            error_log($result);
+           error_log($result);
+		   //return $result;
 
         }
     }

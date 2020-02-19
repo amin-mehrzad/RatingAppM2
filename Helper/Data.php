@@ -16,6 +16,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     const XML_PATH_RATING_APP_TOKEN = 'ratingapp_tab/ratingapp_setting/token';
     const XML_PATH_RATING_APP_REFRESH_TOKEN = 'ratingapp_tab/ratingapp_setting/refresh_token';
     const XML_PATH_RATING_APP_SYNC_STATUS = 'ratingapp_tab/ratingapp_sync/ratingapp_sync_status';
+    const XML_PATH_RATING_APP_SYNC_ENABLED = 'ratingapp_tab/ratingapp_sync/ratingapp_sync_enabled';
 
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
@@ -49,6 +50,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function ratingApp_refreshToken()
     {
         return $this->_scopeConfig->getValue(self::XML_PATH_RATING_APP_REFRESH_TOKEN);
+    }    
+	
+	public function ratingApp_syncEnabled()
+    {
+        return $this->_scopeConfig->getValue(self::XML_PATH_RATING_APP_SYNC_ENABLED);
     }
 
     public function ratingApp_syncStatus()
