@@ -145,7 +145,7 @@ class OrderManagement
                     "orderData" => $orderObject->getData(),
                     "billingData" => $orderObject->getBillingAddress()->getData(),
                     "shippingData" => $orderObject->getShippingAddress()->getData(),
-                   // "emailData" => $email_data,
+                     // "emailData" => $email_data,
                     "itemsData" => $itemsData,
 					"customer_id" => $customerId
                 );

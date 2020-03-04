@@ -1,0 +1,382 @@
+<?php /* @var $block \RatingApp\Rate\Block\Frontend\Success */?>
+<?php echo __('Custom template file content.'); ?>
+<?php //var_dump($block->getOrder());?>
+<div class="ratingApp-modal ratingApp-fade" id="myModal" role="dialog">
+    <div class="ratingApp-modal-dialog">
+        <div class="ratingApp-modal-content">
+            <div class="ratingApp-modal-header">
+                <!-- <button type="button" class="ratingApp-close" data-dismiss="modal">&times;</button>
+                <h4 class="ratingApp-modal-title">Modal Header</h4> -->
+                <h3 class="ratingApp-modal-title">Rate Our Website</h5>
+        <button type="button" class="ratingApp-close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="ratingApp-modal-body">
+                <p>
+                    In our efforts to continually improve the customer experience, we invite you to give feedback about your transaction with Provape.<br>
+                    <br>
+                    How likely are you to recommend Provape to a friend or colleague?
+                </p>
+				<form>
+                <fieldset class="rating">
+			
+                    <input type="radio" id="star5" name="rating" value="5" onChange='validateRatingApp(5)' /><label class="full" for="star5"
+                        title="Awesome - 5 stars" >★</label>
+                    <input type="radio" id="star4" name="rating" value="4" onChange='validateRatingApp(4)' /><label class="full" for="star4"
+                        title="Pretty good - 4 stars">★</label>
+                    <input type="radio" id="star3" name="rating" value="3" onChange='validateRatingApp(3)' /><label class="full" for="star3"
+                        title="Meh - 3 stars">★</label>
+                    <input type="radio" id="star2" name="rating" value="2" onChange='validateRatingApp(2)' /><label class="full" for="star2"
+                        title="Kinda bad - 2 stars">★</label>
+                    <input type="radio" id="star1" name="rating" value="1" onChange='validateRatingApp(1)' /><label class="full" for="star1"
+                        title="Sucks big time - 1 star">★</label>
+		
+                </fieldset>
+				<fieldset class="feedback-details" id="review-details">
+					<label for="nickname" style="margin-top:10px;display:block">Nickname.</label> 
+					<input type="text" class="details" name="nickname" style="border-radius:5px;padding:5px; width:97%;display:block"/>
+					<input type="hidden" name="email" />
+					<label for="nickname" style="margin-top:10px;display:block">Review details (optional)</label> 
+					<textarea type="text" class="details" rows="6" style="border-radius:5px;padding:5px; ;display:block;width:97%;resize:none"></textarea>
+				</fieldset>
+				<fieldset class="feedback-details" id="review-redirect">
+					<div>
+					Thank you for an ultimate support! It would mean a world to us if you could share your experience with others.
+					</div>
+					<div style="padding:20px 0; text-align:center">
+						<a href="https://g.page/r/CdW3HlgjeDREEAg/review" style="padding:20px;background-color:maroon;display:inline-block;margin-left:auto;margin-right:auto">Google Review</a>
+					</div>
+					<input type="hidden" name="email" />
+					<label for="nickname" style="margin-top:10px;display:block">Review details (optional)</label> 
+					<textarea type="text" class="details" rows="6" style="border-radius:5px;padding:5px; ;display:block;width:97%;resize:none"></textarea>
+				</fieldset>
+				
+				</form>
+            <div class="nextRating">
+                <p>
+                    We sincerely appreciate your time and look forward to welcoming you back soon.<br>
+                    <br>
+                    Thank you,<br>
+                    Provape
+                </p>
+                </div>
+            </div>
+            <div class="ratingApp-modal-footer">
+            <button type="button" class="ratingApp-btn ratingApp-btn-secondary" data-dismiss="modal" onchange="closeModalRatingApp()" >Close</button>
+                <button type="button" class="ratingApp-btn ratingApp-btn-primary" data-dismiss="modal">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+fieldset {
+	display:block;
+	widht:100%;
+	clear:both;
+	margin:0;
+	padding:0 !important;
+}
+	.feedback-details {
+		border: none;
+		display:block;
+		height:0;
+		opacity:0;
+		transition: height 0.5s, opacity 0.5s 0.2s;
+	}
+	.show-aimate {
+		height:200px;
+		opacity:1;
+		
+	}
+    @media (min-width:576px) {
+        .ratingApp-modal-dialog {
+            max-width: 500px;
+            margin: 1.75rem auto
+        }
+    }
+
+    @media (min-width:992px) {
+        .ratingApp-modal-dialog {
+            max-width: 800px
+        }
+    }
+
+    .ratingApp-btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    /*padding: .375rem .75rem;
+    font-size: 1rem;*/
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    margin:4px;
+}
+
+.ratingApp-btn:focus,
+.ratingApp-btn:hover {
+    text-decoration: none
+}
+
+.ratingApp-btn.focus,
+.ratingApp-btn:focus {
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25)
+}
+
+.ratingApp-btn.disabled,
+.ratingApp-btn:disabled {
+    opacity: .65
+}
+
+.ratingApp-btn:not(:disabled):not(.disabled) {
+    cursor: pointer
+}
+
+.ratingApp-btn:not(:disabled):not(.disabled).active,
+.ratingApp-btn:not(:disabled):not(.disabled):active {
+    background-image: none
+}
+
+.ratingApp-btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff
+}
+
+.ratingApp-btn-primary:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc
+}
+
+.ratingApp-btn-primary.focus,
+.ratingApp-btn-primary:focus {
+    box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .5)
+}
+
+.ratingApp-btn-primary.disabled,
+.ratingApp-btn-primary:disabled {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff
+}
+
+.ratingApp-btn-primary:not(:disabled):not(.disabled).active,
+.ratingApp-btn-primary:not(:disabled):not(.disabled):active,
+.show>.ratingApp-btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #0062cc;
+    border-color: #005cbf
+}
+
+.ratingApp-btn-primary:not(:disabled):not(.disabled).active:focus,
+.ratingApp-btn-primary:not(:disabled):not(.disabled):active:focus,
+.show>.ratingApp-btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .5)
+}
+.ratingApp-btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d
+}
+
+.ratingApp-btn-secondary:hover {
+    color: #fff;
+    background-color: #5a6268;
+    border-color: #545b62
+}
+
+.ratingApp-btn-secondary.focus,
+.ratingApp-btn-secondary:focus {
+    box-shadow: 0 0 0 .2rem rgba(108, 117, 125, .5)
+}
+
+.ratingApp-btn-secondary.disabled,
+.ratingApp-btn-secondary:disabled {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d
+}
+
+.ratingApp-btn-secondary:not(:disabled):not(.disabled).active,
+.ratingApp-btn-secondary:not(:disabled):not(.disabled):active,
+.show>.ratingApp-btn-secondary.dropdown-toggle {
+    color: #fff;
+    background-color: #545b62;
+    border-color: #4e555b
+}
+
+.ratingApp-btn-secondary:not(:disabled):not(.disabled).active:focus,
+.ratingApp-btn-secondary:not(:disabled):not(.disabled):active:focus,
+.show>.btn-secondary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 .2rem rgba(108, 117, 125, .5)
+}
+    .ratingApp-modal {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, .5);
+        z-index: 1050;
+    }
+
+    .ratingApp-modal-dialog {
+        right: 50%;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 250px;
+        border: 1px solid;
+        padding: 10px;
+        background-color: white;
+        z-index: 1051;
+        opacity: 1 !important;
+        border-radius: 5px;
+        width: auto;
+        margin: .5rem;
+    }
+
+    .ratingApp-modal-content {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        width: 100%;
+        pointer-events: auto;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, .2);
+        border-radius: .3rem;
+        outline: 0
+    }
+
+    .ratingApp-modal-header {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+        align-items: flex-start;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 1rem;
+        border-bottom: 1px solid #e9ecef;
+        border-top-left-radius: .3rem;
+        border-top-right-radius: .3rem
+    }
+
+    .ratingApp-modal-header .ratingApp-close {
+        padding: 1rem;
+        margin: -1rem -1rem -1rem auto
+    }
+
+    .ratingApp-modal-title {
+        margin-bottom: 0;
+        line-height: 1.5
+    }
+
+    .ratingApp-modal-body {
+        position: relative;
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        padding: 1rem
+    }
+
+    .ratingApp-modal-footer {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+
+        align-items: center;
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        justify-content: flex-end;
+        padding: 1rem;
+        border-top: 1px solid #e9ecef
+    }
+
+    .ratingApp-close {
+        float: right;
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1;
+        color: #000;
+        text-shadow: 0 1px 0 #fff;
+        opacity: .5
+    }
+
+    .ratingApp-close:focus,
+    .ratingApp-close:hover {
+        color: #000;
+        text-decoration: none;
+        opacity: .75
+    }
+
+    .ratingApp-close:not(:disabled):not(.disabled) {
+        cursor: pointer
+    }
+
+    button.ratingApp-close {
+        padding: 0;
+        background-color: transparent;
+        border: 0;
+        -webkit-appearance: none
+    }
+
+    .rating {
+        border: none;
+float:left;
+    }
+
+    .rating>input {
+        display: none;
+    }
+
+    .rating>label {
+        color: #ddd;
+        float: right;
+        font-size: 100px;
+    }
+
+    /***** CSS Magic to Highlight Stars on Hover *****/
+    .rating>input:checked~label,
+    /* show gold star when clicked */
+    .rating:not(:checked)>label:hover,
+    /* hover current star */
+    .rating:not(:checked)>label:hover~label {
+        color: #FFD700;
+    }
+
+    /* hover previous stars in list */
+    .rating>input:checked+label:hover,
+    /* hover current star when changing rating */
+    .rating>input:checked~label:hover,
+    .rating>label:hover~input:checked~label,
+    /* lighten current selection */
+    .rating>input:checked~label:hover~label {
+        color: #FFED85;
+    }
+
+    .nextRating{
+        clear:left;
+    }
+</style>
