@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <!-- <head>
-        <script src="http://api.validage.com/ratingApp.js" src_type="url" />
-    </head> -->
+    <head>
+        <!-- <script src="http://api.validage.com/ratingApp.js" id="ratingAppScript" wid="5e39f068d9a6e750a37499f7" src_type="url" /> -->
+    </head>
 </page>
