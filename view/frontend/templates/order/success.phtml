@@ -1,226 +1,653 @@
 <?php /* @var $block \RatingApp\Rate\Block\Frontend\Success */?>
-<?php echo __('Custom template file content.'); ?>
-<?php //var_dump($block->getOrder());?>
-<div class="ratingApp-modal ratingApp-fade" id="myModal" role="dialog">
-    <div class="ratingApp-modal-dialog">
-        <div class="ratingApp-modal-content">
-            <div class="ratingApp-modal-header">
-                <!-- <button type="button" class="ratingApp-close" data-dismiss="modal">&times;</button>
-                <h4 class="ratingApp-modal-title">Modal Header</h4> -->
-                <h3 class="ratingApp-modal-title">Rate Our Website</h5>
-        <button type="button" class="ratingApp-close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+<?php //echo __('Custom template file content.'); ?>
+<?php $data = $block->getSomething();?>
+<div aria-hidden="true" role="dialog" class="ratingAppClass_modal-dialog dialog" id="ratingAppId_open-modal">
+    <div class="ratingAppClass_modal">
+    <a href="#" title="Close" class="close" onClick="ratingAppFunction_closeModal()">×</a>
+    <form action="https://reviews-ai.ngrok.io/websiteDirectReview" method="post" id="ratingAppForm" target="hiddenFrame" >
+            <div class="ratingAppClass_header-modal no__select">
+                <h3 class="ratingAppClass_modal-title">Share your experience!</h5>
             </div>
-            <div class="ratingApp-modal-body">
+			<div class="ratingAppClass_inner-dialog">
+
+          
                 <p>
-                    In our efforts to continually improve the customer experience, we invite you to give feedback about your transaction with Provape.<br>
-                    <br>
-                    How likely are you to recommend Provape to a friend or colleague?
+                    How likely are you to recommend our website to a friend or colleague?
                 </p>
-				<form>
-                <fieldset class="rating">
-			
-                    <input type="radio" id="star5" name="rating" value="5" onChange='validateRatingApp(5)' /><label class="full" for="star5"
-                        title="Awesome - 5 stars" >★</label>
-                    <input type="radio" id="star4" name="rating" value="4" onChange='validateRatingApp(4)' /><label class="full" for="star4"
-                        title="Pretty good - 4 stars">★</label>
-                    <input type="radio" id="star3" name="rating" value="3" onChange='validateRatingApp(3)' /><label class="full" for="star3"
-                        title="Meh - 3 stars">★</label>
-                    <input type="radio" id="star2" name="rating" value="2" onChange='validateRatingApp(2)' /><label class="full" for="star2"
-                        title="Kinda bad - 2 stars">★</label>
-                    <input type="radio" id="star1" name="rating" value="1" onChange='validateRatingApp(1)' /><label class="full" for="star1"
-                        title="Sucks big time - 1 star">★</label>
-		
-                </fieldset>
-				<fieldset class="feedback-details" id="review-details">
-					<label for="nickname" style="margin-top:10px;display:block">Nickname.</label> 
-					<input type="text" class="details" name="nickname" style="border-radius:5px;padding:5px; width:97%;display:block"/>
-					<input type="hidden" name="email" />
-					<label for="nickname" style="margin-top:10px;display:block">Review details (optional)</label> 
-					<textarea type="text" class="details" rows="6" style="border-radius:5px;padding:5px; ;display:block;width:97%;resize:none"></textarea>
-				</fieldset>
-				<fieldset class="feedback-details" id="review-redirect">
-					<div>
-					Thank you for an ultimate support! It would mean a world to us if you could share your experience with others.
+                    <fieldset class="ratingAppClass_rating">
+
+                        <input type="radio" id="star5" name="rating" value="5" class="ratingAppVariable"
+                            onChange='ratingAppFunction_caputreFeedback(5)' /><label class="full" for="star5"
+                            title="Awesome - 5 stars">★</label>
+                        <input type="radio" id="star4" name="rating" value="4"
+                            onChange='ratingAppFunction_caputreFeedback(4)' /><label class="full" for="star4"
+                            title="Pretty good - 4 stars">★</label>
+                        <input type="radio" id="star3" name="rating" value="3"
+                            onChange='ratingAppFunction_caputreFeedback(3)' /><label class="full" for="star3"
+                            title="Meh - 3 stars">★</label>
+                        <input type="radio" id="star2" name="rating" value="2"
+                            onChange='ratingAppFunction_caputreFeedback(2)' /><label class="full" for="star2"
+                            title="Kinda bad - 2 stars">★</label>
+                        <input type="radio" id="star1" name="rating" value="1"
+                            onChange='ratingAppFunction_caputreFeedback(1)' /><label class="full" for="star1"
+                            title="Sucks big time - 1 star">★</label>
+
+                    </fieldset>
+                    <fieldset class="ratingAppClass_feedback-details" id="review-details" style="position:relative">
+                        <input type="hidden" name="websiteID" id="ratingApp_WebsiteID" value="<?php echo $data['websiteID']; ?>"/>
+                        <input type="hidden" name="feedbackUID" id="ratingApp_FeedbackUID"/>
+                        <input type="hidden" name="orderID" id="ratingApp_orderID" value="<?php echo $data['orderID']?>" />
+                        <input type="hidden" name="orderNumber" id="ratingApp_orderNumber" value="<?php echo $data['orderNumber']?>" />
+                        <label for="nickname" style="margin-top:10px;display:block">Nickname.</label>
+                        <input type="text" class="ratingAppClass_details" name="nickName" value="<?php echo $data['customer_nickName']?>"/>
+                        <label for="email" style="margin-top:10px;display:none">Email Address (optional)</label>
+                        <input type="hidden" class="ratingAppClass_details" name="email" value="<?php echo $data['customer_email']?>"/>
+                        <label for="details" style="margin-top:10px;display:block">Review details(optional)</label>
+                        <textarea type="text" class="ratingAppClass_details" rows="3" name="details"
+                            style="max-height:120px;display:block;resize:none"></textarea>
+					<div style="clear:both;position:relative">
+					    <p>
+							We sincerely appreciate your time and look forward to welcoming you back soon.<br>
+							Thank you!
+						</p>
+						
 					</div>
-					<div style="padding:20px 0; text-align:center">
-						<a href="https://g.page/r/CdW3HlgjeDREEAg/review" style="padding:20px;background-color:maroon;display:inline-block;margin-left:auto;margin-right:auto">Google Review</a>
+					<div class="ratingApp-buttons" >
+						<a href="#" class="ratingApp-btn-secondary" onclick="ratingAppFunction_closeModal()">Close</a>
+						<a href="#" class="ratingApp-btn-primary" onclick="ratingAppFunction_submitReview()">Submit</a>
 					</div>
-					<input type="hidden" name="email" />
-					<label for="nickname" style="margin-top:10px;display:block">Review details (optional)</label> 
-					<textarea type="text" class="details" rows="6" style="border-radius:5px;padding:5px; ;display:block;width:97%;resize:none"></textarea>
-				</fieldset>
-				
-				</form>
-            <div class="nextRating">
-                <p>
-                    We sincerely appreciate your time and look forward to welcoming you back soon.<br>
-                    <br>
-                    Thank you,<br>
-                    Provape
-                </p>
-                </div>
+                    </fieldset>
+
+                    
             </div>
-            <div class="ratingApp-modal-footer">
-            <button type="button" class="ratingApp-btn ratingApp-btn-secondary" data-dismiss="modal" onchange="closeModalRatingApp()" >Close</button>
-                <button type="button" class="ratingApp-btn ratingApp-btn-primary" data-dismiss="modal">Submit</button>
+            <div class="ratingAppClass_footer-modal no__select">
+				Powereb by Reviews-AI
             </div>
+           </form>
+
         </div>
-    </div>
-</div>
 <style>
-fieldset {
-	display:block;
-	widht:100%;
-	clear:both;
-	margin:0;
-	padding:0 !important;
+#ratingAppId_open-modal {
+    display:none;
 }
-	.feedback-details {
-		border: none;
-		display:block;
-		height:0;
-		opacity:0;
-		transition: height 0.5s, opacity 0.5s 0.2s;
-	}
-	.show-aimate {
-		height:200px;
-		opacity:1;
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+  select,
+  textarea,
+  input {
+    font-size: 16px;
+  }
+}
+/*** iPhone and iOS Form Input Zoom Fixes ***/
+/* Fix Input Zoom on devices older than iPhone 5: */
+@media screen and (device-aspect-ratio: 2/3) {
+    select, textarea, input[type="text"], input[type="password"],
+    input[type="datetime"], input[type="datetime-local"],
+    input[type="date"], input[type="month"], input[type="time"],
+    input[type="week"], input[type="number"], input[type="email"],
+    input[type="url"]{ font-size: 16px; }
+}
+
+/* Fix Input Zoom on iPhone 5, 5C, 5S, iPod Touch 5g */
+@media screen and (device-aspect-ratio: 40/71) {
+    select, textarea, input[type="text"], input[type="password"],
+    input[type="datetime"], input[type="datetime-local"],
+    input[type="date"], input[type="month"], input[type="time"],
+    input[type="week"], input[type="number"], input[type="email"],
+    input[type="url"]{ font-size: 16px; }
+}
+
+/* Fix Input Zoom on iPhone 6, iPhone 6s, iPhone 7  */
+@media screen and (device-aspect-ratio: 375/667) {
+    select, textarea, input[type="text"], input[type="password"],
+    input[type="datetime"], input[type="datetime-local"],
+    input[type="date"], input[type="month"], input[type="time"],
+    input[type="week"], input[type="number"], input[type="email"],
+    input[type="url"]{ font-size: 16px; }
+}
+
+/* Fix Input Zoom on iPhone 6 Plus, iPhone 6s Plus, iPhone 7 Plus, iPhone 8, iPhone X, XS, XS Max  */
+@media screen and (device-aspect-ratio: 9/16) {
+    select, textarea, input[type="text"], input[type="password"],
+    input[type="datetime"], input[type="datetime-local"],
+    input[type="date"], input[type="month"], input[type="time"],
+    input[type="week"], input[type="number"], input[type="email"],
+    input[type="url"]{ font-size: 16px; }
+}
+input[type=text], input[type=password], textarea {
+  display: inline-block;
+  color: black;
+  padding: 10px;
+  min-width: 250px;
+  width:100%;
+  font-size:16px;
+  box-sizing: border-box;
+  background-color: rgba(255,255,255,0.25);
+  border: 1px solid #e4e4e4;
+  
+  border-radius: 2px;
+  margin: 10px auto;
+  transition:background-color 0.5s ease;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: rgba(255,255,255,0.45);
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0
+}
+
+.no__select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+.ratingAppClass_modal-dialog {
+    opacity: 1;
+    pointer-events: auto;
+	height:auto
+	
+}
+
+.ratingAppClass_modal-dialog.wrapper {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    height: 100%;
+    backface-visibility: hidden
+}
+
+.ratingAppClass_modal-dialog {
+    display: block;
+    opacity: 1;
+    position: fixed;
+    z-index: 9999999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNiqAcAAIgAgoGu+rEAAAAASUVORK5CYII=) 0 0 repeat;
+    background: rgba(255, 255, 255, .95);
+	font-family: Sentinel SSm A,Sentinel SSm B,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+}
+
+.ratingAppClass_header-modal {
+    position: relative;
+    z-index: 1001;
+    height: 70px;
+	padding: 0 2%;
+    max-height: 15vh;
+    background: #fff;
+    font-family: Sentinel SSm A,Sentinel SSm B,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-weight: 300;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=30,Direction=95,Color='#ffffff')";
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=30, Direction=95, Color='#ffffff');
+    -webkit-box-shadow: -15px 10px 30px rgba(255, 255, 255, .9);
+    -moz-box-shadow: -15px 10px 30px rgba(255, 255, 255, .9);
+    -o-box-shadow: -15px 10px 30px rgba(255, 255, 255, .9);
+    -ms-box-shadow: -15px 10px 30px rgba(255, 255, 255, .9);
+    box-shadow: -15px 10px 30px rgba(255, 255, 255, .9)
+}
+
+.ratingAppClass_header-modal h3 {
+	padding:0 !important;
+    display: block;
+    display: inline-block;
+    margin: 0;
+    padding: 0 0 0 .5em;
+    vertical-align: middle;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    line-height: 70px;
+    font-size: 40px;
+    font-weight: 700
+}
+
+.ratingAppClass_header-modal strong {
+    color: #ccc
+}
+
+.ratingAppClass_header-modal span {
+    float: right;
+    margin: 28px 30% 0 0
+}
+
+.ratingAppClass_header-modal a {
+    display: inline-block;
+	font-family: Sentinel SSm A,Sentinel SSm B,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    width: 34px;
+    height: 34px;
+    margin: 0 0 0 .5em;
+    border: 1px solid transparent;
+    line-height: 32px
+}
+
+.ratingAppClass_header-modal a:hover,
+.ratingAppClass_header-modal a:active {
+    border-color: #ccc;
+    border-radius: 50%;
+    -webkit-tap-highlight-color: transparent
+}
+
+.ratingAppClass_header-modal svg {
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    vertical-align: middle
+}
+
+.ratingAppClass_header-modal svg path {
+    fill: green
+}
+
+.ratingAppClass_modal-dialog .close {
+    display: block;
+    position: absolute;
+    z-index: 10000;
+    top: 7px;
+    right: 10px;
+    width: 29px;
+    height: 29px;
+    margin: 0;
+    padding: 0;
+    background: #eee;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
+    color: #d4d4d4;
+    font: normal normal normal 1.2em/29px 'HelveticaNeueLight', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    border-radius: 50%;
+    -webkit-transition: box-shadow 200ms ease-out, -webkit-transform 200ms ease-out, opacity 200ms ease-in-out;
+    -moz-transition: box-shadow 200ms ease-out, -moz-transform 200ms ease-out, opacity 200ms ease-in-out;
+    transition: box-shadow 200ms ease-out, transform 200ms ease-out, opacity 200ms ease-in-out
+}
+
+.ratingAppClass_modal-dialog .close:hover,
+.ratingAppClass_inner-dialog .close:active {
+    background: #e6005c;
+    color: #fff;
+    outline: none;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+    -webkit-tap-highlight-color: transparent
+}
+
+.ratingAppClass_modal-dialog .ratingAppClass_modal {
+    overflow: hidden;
+    overflow: -moz-hidden-unscrollable;
+    position: relative;
+    z-index: 1000;
+    max-width: 720px;
+    min-width: 250px;
+	width:96%;
+    margin: 5% auto;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 6px 6px 0 0;
+    -webkit-box-shadow: 0 -10px 45px rgba(0, 0, 0, .25);
+    -moz-box-shadow: 0 -10px 45px rgba(0, 0, 0, .25);
+    box-shadow: 0 -10px 45px rgba(0, 0, 0, .25);
+	zoom:1
+    
+}
+
+.ratingAppClass_modal-dialog .ratingAppClass_inner-dialog {
+    overflow-y: visible;
+    overflow-y: scroll;
+    display: inline-block;
+    width: 100%;
+    max-height: 145px;
+    max-height: 47vh;
+    max-height: calc(100vh - 25vh - 140px);
+    height: 90%;
+    margin: 0;
+    padding:20px 2% 50px 2%
+}
+
+.ratingAppClass_modal-dialog .ratingAppClass_inner-dialog p {
+	font-family: Sentinel SSm A,Sentinel SSm B,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+   font-size:16px;
+   margin:20px 0;
+   color:#333333 !important;
+}
+
+.ratingAppClass_footer-modal {
+    overflow-y: auto;
+    width: 100%;
+    height: 50px;
+    margin: 0 auto;
+    text-align: center;
+	font-size:12px;
+	line-height:50px;
+	background-color:#f4f4f4;
+	color:#c4c4c4;
+    border-radius: 0 0 2px 2px;
+    /*-webkit-box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .3);
+    -moz-box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .3);
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .3) */
+}
+
+
+.ratingAppClass_footer-modal a {
+    display: inline-table;
+	margin:10px;
+	font-family: Sentinel SSm A,Sentinel SSm B,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    padding: 0 2em;
+	border-radius:2px;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    word-break: keep-all;
+
+    font-weight: 700;
+    line-height: 30px;
+    outline: none;
+    -webkit-transition: .3s ease-out;
+    transition: .3s ease-out;
+    -webkit-tap-highlight-color: #0b7cd7
+}
+
+.ratingAppClass_footer-modal a:hover,
+.ratingAppClass_footer-modal a:active {
+    background: #0b7cd7;
+    -webkit-tap-highlight-color: #0b7cd7
+}
+
+.ratingApp-buttons {
+    overflow: hidden;
+    width: 100%;
+    height: 50px;
+    margin: 0 auto;
+    text-align: right;
+}
+
+.ratingApp-buttons a {
+    display: inline-table;
+	margin-left:10px;
+    padding: 0 2em;
+	border-radius:2px;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    word-break: keep-all;
+    font-family: Sentinel SSm A,Sentinel SSm B,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-weight: 700;
+    line-height: 30px;
+    outline: none;
+    -webkit-transition: .3s ease-out;
+    transition: .3s ease-out;
+    -webkit-tap-highlight-color: #0b7cd7
+}
+
+@media only screen and (max-width:576px) {
+    .ratingAppClass_header-modal h3 {
+        font-size: 24px
+    }
+
+    .ratingAppClass_header-modal span {
+        float: none;
+        margin: 0
+    }
+
+    .ratingAppClass_header-modal a {
+        float: none;
+        width: 24px;
+        height: 24px;
+        margin: 0 0 0 .5em;
+        vertical-align: text-top
+    }
+
+    .ratingAppClass_header-modal svg {
+        width: 22px;
+        height: 22px;
+        vertical-align: baseline
+    }
+
+    .xxxxratingAppClass_modal-dialog .ratingAppClass_modal {
+        margin: 5vh auto 0;
+        margin: calc(15vh - 50px) auto 0
+    }
+
+    html .ratingAppClass_footer-modal {
+        /* box-shadow: 0 -10px 10px rgba(221, 221, 221, .95) */
+    }
+
+    .ratingAppClass_footer-modal a {
+        font-size: 80%
+    }
+
+    .mob-hide {
+        display: none
+    }
+}
+
+:-o-prefocus,
+html .ratingAppClass_modal-dialog .ratingAppClass_inner-dialog {
+    height: 100%;
+    max-height: 100%
+}
+
+:-o-prefocus,
+html .ratingAppClass_footer-modal a {
+    display: inline-block;
+    padding: .8em 2em
+}
+
+.ratingAppClass_modal-dialog ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px
+}
+
+.ratingAppClass_modal-dialog ::-webkit-scrollbar-button {
+    background-color: #666
+}
+
+.ratingAppClass_modal-dialog ::-webkit-scrollbar-track {
+    background-color: #999
+}
+
+.ratingAppClass_modal-dialog ::-webkit-scrollbar-track-piece {
+    background-color: #fff
+}
+
+.ratingAppClass_modal-dialog ::-webkit-scrollbar-thumb {
+    height: 50px;
+    background-color: #999;
+    border-radius: 3px
+}
+
+.ratingAppClass_modal-dialog ::-webkit-scrollbar-corner {
+    background-color: #999
+}
+
+.ratingAppClass_modal-dialog ::-webkit-resizer {
+    background-color: #666
+}
+</style>
+<style>
+
+    fieldset {
+        display: block;
+        clear: both;
+        margin: 0 !important;
+        padding: 20px 0 !important;
 		
-	}
-    @media (min-width:576px) {
-        .ratingApp-modal-dialog {
-            max-width: 500px;
+    }
+
+    .ratingAppClass_feedback-details {
+        border: none;
+        display: flex;
+        height: 0px;
+		opacity:0;
+		padding-bottom:0;
+        transition:all 1s;
+    }
+
+    .show-aimate {
+		display:block;
+        height: 320px;
+		opacity:1;
+
+    }
+
+    @media (max-width:576px) {
+        .ratingApp-ratingAppClass_modal-dialog {
+            max-width: 400px;
             margin: 1.75rem auto
+        }
+
+        .ratingAppClass_rating>label {
+            color: #ddd ;
+            float: right !important;
+            font-size: 60px !important;
         }
     }
 
-    @media (min-width:992px) {
-        .ratingApp-modal-dialog {
+    @media (min-width:576px) {
+        .ratingApp-ratingAppClass_modal-dialog {
             max-width: 800px
+        }
+
+        .ratingAppClass_rating>label {
+            color: #ddd ;
+            float: right !important;
+            font-size: 80px !important;
         }
     }
 
     .ratingApp-btn {
-    display: inline-block;
-    font-weight: 400;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    border: 1px solid transparent;
-    /*padding: .375rem .75rem;
+        display: inline-block;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        border: 1px solid transparent;
+        /*padding: .375rem .75rem;
     font-size: 1rem;*/
-    line-height: 1.5;
-    border-radius: .25rem;
-    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-    margin:4px;
-}
+        line-height: 1.5;
+        border-radius: .25rem;
+		-webkit-transition: box-shadow 200ms ease-out, -webkit-transform 200ms ease-out, opacity 200ms ease-in-out;
+    -moz-transition: box-shadow 200ms ease-out, -moz-transform 200ms ease-out, opacity 200ms ease-in-out;
+    transition: box-shadow 200ms ease-out, transform 200ms ease-out, opacity 200ms ease-in-out;
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    }
 
-.ratingApp-btn:focus,
-.ratingApp-btn:hover {
-    text-decoration: none
-}
+    .ratingApp-btn:focus,
+    .ratingApp-btn:hover {
+        text-decoration: none;
+		box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+    }
 
-.ratingApp-btn.focus,
-.ratingApp-btn:focus {
-    outline: 0;
-    box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25)
-}
+    .ratingApp-btn.focus,
+    .ratingApp-btn:focus {
+        outline: 0;
+        box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25)
+    }
 
-.ratingApp-btn.disabled,
-.ratingApp-btn:disabled {
-    opacity: .65
-}
+    .ratingApp-btn.disabled,
+    .ratingApp-btn:disabled {
+        opacity: .65
+    }
 
-.ratingApp-btn:not(:disabled):not(.disabled) {
-    cursor: pointer
-}
+    .ratingApp-btn:not(:disabled):not(.disabled) {
+        cursor: pointer
+    }
 
-.ratingApp-btn:not(:disabled):not(.disabled).active,
-.ratingApp-btn:not(:disabled):not(.disabled):active {
-    background-image: none
-}
+    .ratingApp-btn:not(:disabled):not(.disabled).active,
+    .ratingApp-btn:not(:disabled):not(.disabled):active {
+        background-image: none
+    }
 
-.ratingApp-btn-primary {
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff
-}
+    .ratingApp-btn-primary {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff
+    }
 
-.ratingApp-btn-primary:hover {
-    color: #fff;
-    background-color: #0069d9;
-    border-color: #0062cc
-}
+    .ratingApp-btn-primary:hover {
+        color: #fff;
+        background-color: #0069d9;
+        border-color: #0062cc
+    }
 
-.ratingApp-btn-primary.focus,
-.ratingApp-btn-primary:focus {
-    box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .5)
-}
+    .ratingApp-btn-primary.focus,
+    .ratingApp-btn-primary:focus {
+        box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .5)
+    }
 
-.ratingApp-btn-primary.disabled,
-.ratingApp-btn-primary:disabled {
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff
-}
+    .ratingApp-btn-primary.disabled,
+    .ratingApp-btn-primary:disabled {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff
+    }
 
-.ratingApp-btn-primary:not(:disabled):not(.disabled).active,
-.ratingApp-btn-primary:not(:disabled):not(.disabled):active,
-.show>.ratingApp-btn-primary.dropdown-toggle {
-    color: #fff;
-    background-color: #0062cc;
-    border-color: #005cbf
-}
+    .ratingApp-btn-primary:not(:disabled):not(.disabled).active,
+    .ratingApp-btn-primary:not(:disabled):not(.disabled):active,
+    .show>.ratingApp-btn-primary.dropdown-toggle {
+        color: #fff;
+        background-color: #0062cc;
+        border-color: #005cbf
+    }
 
-.ratingApp-btn-primary:not(:disabled):not(.disabled).active:focus,
-.ratingApp-btn-primary:not(:disabled):not(.disabled):active:focus,
-.show>.ratingApp-btn-primary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .5)
-}
-.ratingApp-btn-secondary {
-    color: #fff;
-    background-color: #6c757d;
-    border-color: #6c757d
-}
+    .ratingApp-btn-primary:not(:disabled):not(.disabled).active:focus,
+    .ratingApp-btn-primary:not(:disabled):not(.disabled):active:focus,
+    .show>.ratingApp-btn-primary.dropdown-toggle:focus {
+        box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .5)
+    }
 
-.ratingApp-btn-secondary:hover {
-    color: #fff;
-    background-color: #5a6268;
-    border-color: #545b62
-}
+    .ratingApp-btn-secondary {
+        color: #fff;
+        background-color: #6c757d;
+        border-color: #6c757d
+    }
 
-.ratingApp-btn-secondary.focus,
-.ratingApp-btn-secondary:focus {
-    box-shadow: 0 0 0 .2rem rgba(108, 117, 125, .5)
-}
+    .ratingApp-btn-secondary:hover {
+        color: #fff;
+        background-color: #5a6268;
+        border-color: #545b62
+    }
 
-.ratingApp-btn-secondary.disabled,
-.ratingApp-btn-secondary:disabled {
-    color: #fff;
-    background-color: #6c757d;
-    border-color: #6c757d
-}
+    .ratingApp-btn-secondary.focus,
+    .ratingApp-btn-secondary:focus {
+        box-shadow: 0 0 0 .2rem rgba(108, 117, 125, .5)
+    }
 
-.ratingApp-btn-secondary:not(:disabled):not(.disabled).active,
-.ratingApp-btn-secondary:not(:disabled):not(.disabled):active,
-.show>.ratingApp-btn-secondary.dropdown-toggle {
-    color: #fff;
-    background-color: #545b62;
-    border-color: #4e555b
-}
+    .ratingApp-btn-secondary.disabled,
+    .ratingApp-btn-secondary:disabled {
+        color: #fff;
+        background-color: #6c757d;
+        border-color: #6c757d
+    }
 
-.ratingApp-btn-secondary:not(:disabled):not(.disabled).active:focus,
-.ratingApp-btn-secondary:not(:disabled):not(.disabled):active:focus,
-.show>.btn-secondary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(108, 117, 125, .5)
-}
-    .ratingApp-modal {
+    .ratingApp-btn-secondary:not(:disabled):not(.disabled).active,
+    .ratingApp-btn-secondary:not(:disabled):not(.disabled):active,
+    .show>.ratingApp-btn-secondary.dropdown-toggle {
+        color: #fff;
+        background-color: #545b62;
+        border-color: #4e555b
+    }
+
+    .ratingApp-btn-secondary:not(:disabled):not(.disabled).active:focus,
+    .ratingApp-btn-secondary:not(:disabled):not(.disabled):active:focus,
+    .show>.btn-secondary.dropdown-toggle:focus {
+        box-shadow: 0 0 0 .2rem rgba(108, 117, 125, .5)
+    }
+
+    .ratingApp-ratingAppClass_modal {
         position: fixed;
         top: 0;
         bottom: 0;
@@ -230,153 +657,67 @@ fieldset {
         z-index: 1050;
     }
 
-    .ratingApp-modal-dialog {
-        right: 50%;
-        position: relative;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 250px;
-        border: 1px solid;
-        padding: 10px;
-        background-color: white;
-        z-index: 1051;
-        opacity: 1 !important;
-        border-radius: 5px;
-        width: auto;
-        margin: .5rem;
-    }
+    
 
-    .ratingApp-modal-content {
-        position: relative;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-        flex-direction: column;
-        width: 100%;
-        pointer-events: auto;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid rgba(0, 0, 0, .2);
-        border-radius: .3rem;
-        outline: 0
-    }
-
-    .ratingApp-modal-header {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-align: start;
-        -ms-flex-align: start;
-        align-items: flex-start;
-        -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-        justify-content: space-between;
-        padding: 1rem;
-        border-bottom: 1px solid #e9ecef;
-        border-top-left-radius: .3rem;
-        border-top-right-radius: .3rem
-    }
-
-    .ratingApp-modal-header .ratingApp-close {
-        padding: 1rem;
-        margin: -1rem -1rem -1rem auto
-    }
-
-    .ratingApp-modal-title {
-        margin-bottom: 0;
-        line-height: 1.5
-    }
-
-    .ratingApp-modal-body {
-        position: relative;
-        -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-        flex: 1 1 auto;
-        padding: 1rem
-    }
-
-    .ratingApp-modal-footer {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-
-        align-items: center;
-        -webkit-box-pack: end;
-        -ms-flex-pack: end;
-        justify-content: flex-end;
-        padding: 1rem;
-        border-top: 1px solid #e9ecef
-    }
-
-    .ratingApp-close {
-        float: right;
-        font-size: 1.5rem;
-        font-weight: 700;
-        line-height: 1;
-        color: #000;
-        text-shadow: 0 1px 0 #fff;
-        opacity: .5
-    }
-
-    .ratingApp-close:focus,
-    .ratingApp-close:hover {
-        color: #000;
-        text-decoration: none;
-        opacity: .75
-    }
-
-    .ratingApp-close:not(:disabled):not(.disabled) {
-        cursor: pointer
-    }
-
-    button.ratingApp-close {
-        padding: 0;
-        background-color: transparent;
-        border: 0;
-        -webkit-appearance: none
-    }
-
-    .rating {
+    .ratingAppClass_rating {
         border: none;
-float:left;
+        float: left;
     }
 
-    .rating>input {
+    .ratingAppClass_rating>input {
+		font-family: Sentinel SSm A,Sentinel SSm B,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+        display: none;
+    }
+	.ratingAppClass_rating>textarea {
+		font-family: Sentinel SSm A,Sentinel SSm B,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
         display: none;
     }
 
-    .rating>label {
+    .ratingAppClass_rating>label {
+		font-family: Sentinel SSm A,Sentinel SSm B,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
         color: #ddd;
         float: right;
-        font-size: 100px;
+    }    
+	.ratingAppClass_feedback-details>label {
+        color: #333333;
+		font-family: Sentinel SSm A,Sentinel SSm B,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+        float: left;
+		margin:10px 0 0 0 !important;
+		
+    }
+    .ratingAppClass_feedback-details>input {
+ 		margin:0 !important;
+		
     }
 
     /***** CSS Magic to Highlight Stars on Hover *****/
-    .rating>input:checked~label,
+    .ratingAppClass_rating>input:checked~label,
     /* show gold star when clicked */
-    .rating:not(:checked)>label:hover,
+    .ratingAppClass_rating:not(:checked)>label:hover,
     /* hover current star */
-    .rating:not(:checked)>label:hover~label {
+    .ratingAppClass_rating:not(:checked)>label:hover~label {
         color: #FFD700;
     }
 
     /* hover previous stars in list */
-    .rating>input:checked+label:hover,
+    .ratingAppClass_rating>input:checked+label:hover,
     /* hover current star when changing rating */
-    .rating>input:checked~label:hover,
-    .rating>label:hover~input:checked~label,
+    .ratingAppClass_rating>input:checked~label:hover,
+    .ratingAppClass_rating>label:hover~input:checked~label,
     /* lighten current selection */
-    .rating>input:checked~label:hover~label {
+    .ratingAppClass_rating>input:checked~label:hover~label {
         color: #FFED85;
     }
 
-    .nextRating{
-        clear:left;
+    .nextRating {
+        clear: left;
     }
+	
+	.ratingAppClass_fixed {
+		position:fixed !important;
+		width:100% !important;
+		height:100% !important;
+	}
+	
 </style>
+</div>

@@ -86,6 +86,19 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         }
     }
 
+    public function ratingApp_getJWTData($var)
+    {
+        //todo add check if websiteID is already set, return website id, otherwise get websiteId from token, and set variable
+        $token= $this->_scopeConfig->getValue(self::XML_PATH_RATING_APP_TOKEN);
+        $data = explode('.',$token)[1];
+        $dd=base64_decode($data);
+        $ddArray= json_decode($dd,true);
+        if(isset($ddArray[$var])){
+            return $ddArray[$var];
+        } else { 
+            return "";
+        }
+    }
 
 
 
