@@ -69,45 +69,80 @@ class Success extends \Magento\Checkout\Block\Onepage\Success
         $jsonOrderData = json_encode($arrayOrderData);
 
         return $arrayOrderData;
-        
-        $metadata = $cookieMetadataFactory
-            ->createPublicCookieMetadata()
-            ->setDuration(30);
-        $cookieManager->setPublicCookie(
-            'ratig_app',
-            $jsonOrderData,
-            $metadata
-        );
 
-        //error_log(print_r($arrayOrderData, true));
-
-        // $data = json_encode(_getOrderData($this->_checkoutSession->getLastRealOrder()), true);
-        //    $data=http_build_query($this->_email_data);
-
-        $cLength = mb_strlen($data);
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Expect:", 'Content-Type:application/json', "Authorization:{$authorization}", "Content-Length:{$cLength}"));
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        $result = curl_exec($ch);
-
-        // Check HTTP status code
-        if (!curl_errno($ch)) {
-            switch ($http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
-                case 200: # OK
-                    break;
-                default:
-                    error_log('Unexpected HTTP code: ' . $http_code);
-            }
-        }
-
-        curl_close($ch);
-        error_log($result);
-        error_log($appToken);
-        error_log('------------------=====');
-        return 'returned something from custom block.';
     }
+public function getFeedbackToken(){
+    // todo  submit to feedback endpoint with bearer token and get feedback uid
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $helper = $objectManager->create('\RatingApp\Rate\Helper\Data');
+    $appToken = $helper->ratingApp_token();
+
+    $authorization = "Bearer " . $appToken;
+
+    // $url = 'https://api03.validage.com/API/emails';
+    $url = 'https://reviews-ai.ngrok.io/API/websiteFeedbacks';
+
+
+    $order = $this->_checkoutSession->getLastRealOrder();
+    if ($order->getCustomerIsGuest()) {
+        $customerId = null;
+        $customerEmail = $order->getBillingAddress()->getEmail();
+        $customerFirstname = $order->getBillingAddress()->getFirstname();
+        $customerLastname = $order->getBillingAddress()->getLastname();
+    } else {
+        $customerId = $order->getCustomerId();
+        $customerEmail = $order->getCustomerEmail();
+        $customerFirstname = $order->getCustomerFirstname();
+        $customerLastname = $order->getCustomerLastname();
+    }
+
+    $feedbackData = array(
+
+        "firstName" => $customerFirstname,
+        "lastName" => $customerLastname,
+        "nickName" => $customerFirstname . ' ' . $customerLastname[0] . '.',
+        "email" => $customerEmail,
+        "customerID" => $customerId,
+
+        "orderNumber" => $order->getIncrementId(),
+        "orderID" => $order->getId(),
+
+        "rate"=>"",
+
+        "status"=>"init",
+        "source"=>"M2Popup"
+    );
+
+    $jsonfeedbackData = json_encode($feedbackData);
+
+    $cLength = mb_strlen($jsonfeedbackData);
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array("Expect:", 'Content-Type:application/json', "Authorization:{$authorization}", "Content-Length:{$cLength}"));
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonfeedbackData);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    $result = curl_exec($ch);
+
+    $ret['data'] = array(
+        'feedbackUID'=> false
+    );
+// Check HTTP status code
+if (!curl_errno($ch)) {
+    switch ($http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
+        case 200: # OK
+            $ret = json_decode($result, true);
+            break;
+        default:
+    }
+} else {
+    
+}
+
+curl_close($ch);
+return $ret;
+
+}
+
 }

@@ -1,64 +1,65 @@
 <?php /* @var $block \RatingApp\Rate\Block\Frontend\Success */?>
 <?php //echo __('Custom template file content.'); ?>
-<?php $data = $block->getSomething();?>
-<div aria-hidden="true" role="dialog" class="ratingAppClass_modal-dialog dialog" id="ratingAppId_open-modal">
+<?php $datax = $block->getFeedbackToken();?>
+<?php $data = $datax['data'];?>
+
+
+<?php if ($data['feedbackUID']) {?>
+<div aria-hidden="true" role="dialog" class="ratingAppClass_modal-dialog dialog" id="ratingAppId_open-modal" >
     <div class="ratingAppClass_modal">
     <a href="#" title="Close" class="close" onClick="ratingAppFunction_closeModal()">×</a>
-    <form action="https://reviews-ai.ngrok.io/websiteDirectReview" method="post" id="ratingAppForm" target="hiddenFrame" >
+    <form action="https://reviews-ai.ngrok.io/websiteFeedbacksDirect/<?php echo $data['feedbackUID'] ?>" method="post" id="ratingAppForm" target="hiddenFrame" >
             <div class="ratingAppClass_header-modal no__select">
                 <h3 class="ratingAppClass_modal-title">Share your experience!</h5>
             </div>
 			<div class="ratingAppClass_inner-dialog">
 
-          
+
                 <p>
                     How likely are you to recommend our website to a friend or colleague?
                 </p>
                     <fieldset class="ratingAppClass_rating">
 
-                        <input type="radio" id="star5" name="rating" value="5" class="ratingAppVariable"
-                            onChange='ratingAppFunction_caputreFeedback(5)' /><label class="full" for="star5"
+                        <input type="radio" id="star5" name="rate" value="5" class="ratingAppVariable"
+                            onChange="ratingAppFunction_caputreFeedback(5, '<?php echo $data['feedbackUID'] ?>')" /><label class="full" for="star5"
                             title="Awesome - 5 stars">★</label>
-                        <input type="radio" id="star4" name="rating" value="4"
-                            onChange='ratingAppFunction_caputreFeedback(4)' /><label class="full" for="star4"
+                        <input type="radio" id="star4" name="rate" value="4"
+                            onChange="ratingAppFunction_caputreFeedback(4, '<?php echo $data['feedbackUID'] ?>')" /><label class="full" for="star4"
                             title="Pretty good - 4 stars">★</label>
-                        <input type="radio" id="star3" name="rating" value="3"
-                            onChange='ratingAppFunction_caputreFeedback(3)' /><label class="full" for="star3"
+                        <input type="radio" id="star3" name="rate" value="3"
+                            onChange="ratingAppFunction_caputreFeedback(3, '<?php echo $data['feedbackUID'] ?>')" /><label class="full" for="star3"
                             title="Meh - 3 stars">★</label>
-                        <input type="radio" id="star2" name="rating" value="2"
-                            onChange='ratingAppFunction_caputreFeedback(2)' /><label class="full" for="star2"
+                        <input type="radio" id="star2" name="rate" value="2"
+                            onChange="ratingAppFunction_caputreFeedback(2, '<?php echo $data['feedbackUID'] ?>')" /><label class="full" for="star2"
                             title="Kinda bad - 2 stars">★</label>
-                        <input type="radio" id="star1" name="rating" value="1"
-                            onChange='ratingAppFunction_caputreFeedback(1)' /><label class="full" for="star1"
+                        <input type="radio" id="star1" name="rate" value="1"
+                            onChange="ratingAppFunction_caputreFeedback(1, '<?php echo $data['feedbackUID'] ?>')" /><label class="full" for="star1"
                             title="Sucks big time - 1 star">★</label>
 
                     </fieldset>
                     <fieldset class="ratingAppClass_feedback-details" id="review-details" style="position:relative">
-                        <input type="hidden" name="websiteID" id="ratingApp_WebsiteID" value="<?php echo $data['websiteID']; ?>"/>
-                        <input type="hidden" name="feedbackUID" id="ratingApp_FeedbackUID"/>
-                        <input type="hidden" name="orderID" id="ratingApp_orderID" value="<?php echo $data['orderID']?>" />
-                        <input type="hidden" name="orderNumber" id="ratingApp_orderNumber" value="<?php echo $data['orderNumber']?>" />
                         <label for="nickname" style="margin-top:10px;display:block">Nickname.</label>
-                        <input type="text" class="ratingAppClass_details" name="nickName" value="<?php echo $data['customer_nickName']?>"/>
-                        <label for="email" style="margin-top:10px;display:none">Email Address (optional)</label>
-                        <input type="hidden" class="ratingAppClass_details" name="email" value="<?php echo $data['customer_email']?>"/>
-                        <label for="details" style="margin-top:10px;display:block">Review details(optional)</label>
-                        <textarea type="text" class="ratingAppClass_details" rows="3" name="details"
-                            style="max-height:120px;display:block;resize:none"></textarea>
+                        <input type="text" class="ratingAppClass_details" name="nickName" value="<?php echo $data['nickName'] ?>"/>
+                        <label for="details" style="margin-top:10px;display:block">Review details</label>
+                        <textarea type="text" class="ratingAppClass_details"  id="ratingAppClass_details" rows="3" name="details"
+                            style="max-height:120px;display:block;resize:none" onkeydown="ratingAppFormValidate()" onfocus="ratingAppFormValidate()"></textarea>
+                            <!-- <div class="invalid-feedback">
+                                Please provide description for feedback.
+                            </div>
+                            <div class="valid-feedback">
+                                Thanks for your feedback!
+                            </div> -->
 					<div style="clear:both;position:relative">
 					    <p>
 							We sincerely appreciate your time and look forward to welcoming you back soon.<br>
 							Thank you!
 						</p>
-						
 					</div>
 					<div class="ratingApp-buttons" >
 						<a href="#" class="ratingApp-btn-secondary" onclick="ratingAppFunction_closeModal()">Close</a>
-						<a href="#" class="ratingApp-btn-primary" onclick="ratingAppFunction_submitReview()">Submit</a>
+						<a href="#" class="ratingApp-btn-primary" onclick="ratingAppFunction_submitReview('<?php echo $data['feedbackUID'] ?>')">Submit</a>
 					</div>
                     </fieldset>
-
-                    
             </div>
             <div class="ratingAppClass_footer-modal no__select">
 				Powereb by Reviews-AI
@@ -71,7 +72,7 @@
     display:none;
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) { 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
   select,
   textarea,
   input {
@@ -124,7 +125,7 @@ input[type=text], input[type=password], textarea {
   box-sizing: border-box;
   background-color: rgba(255,255,255,0.25);
   border: 1px solid #e4e4e4;
-  
+
   border-radius: 2px;
   margin: 10px auto;
   transition:background-color 0.5s ease;
@@ -152,7 +153,7 @@ body {
     opacity: 1;
     pointer-events: auto;
 	height:auto
-	
+
 }
 
 .ratingAppClass_modal-dialog.wrapper {
@@ -295,7 +296,7 @@ body {
     -moz-box-shadow: 0 -10px 45px rgba(0, 0, 0, .25);
     box-shadow: 0 -10px 45px rgba(0, 0, 0, .25);
 	zoom:1
-    
+
 }
 
 .ratingAppClass_modal-dialog .ratingAppClass_inner-dialog {
@@ -480,7 +481,7 @@ html .ratingAppClass_footer-modal a {
         clear: both;
         margin: 0 !important;
         padding: 20px 0 !important;
-		
+
     }
 
     .ratingAppClass_feedback-details {
@@ -657,7 +658,7 @@ html .ratingAppClass_footer-modal a {
         z-index: 1050;
     }
 
-    
+
 
     .ratingAppClass_rating {
         border: none;
@@ -677,17 +678,17 @@ html .ratingAppClass_footer-modal a {
 		font-family: Sentinel SSm A,Sentinel SSm B,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
         color: #ddd;
         float: right;
-    }    
+    }
 	.ratingAppClass_feedback-details>label {
         color: #333333;
 		font-family: Sentinel SSm A,Sentinel SSm B,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
         float: left;
 		margin:10px 0 0 0 !important;
-		
+
     }
     .ratingAppClass_feedback-details>input {
  		margin:0 !important;
-		
+
     }
 
     /***** CSS Magic to Highlight Stars on Hover *****/
@@ -712,12 +713,82 @@ html .ratingAppClass_footer-modal a {
     .nextRating {
         clear: left;
     }
-	
+    .ratingAppClass_formValid{
+        border-color: #28a745 !important;
+      /*  box-shadow: 0 0 0 .2rem rgba(40, 167, 69, .25); */
+    }
+    .ratingAppClass_formInvalid,
+    .ratingAppDetails.ratingAppClass_formInvalid:focus{
+        border-color: #dc3545;
+        box-shadow: 0 0 0 .2rem rgba(220, 53, 69, .25);
+    }
+
 	.ratingAppClass_fixed {
 		position:fixed !important;
 		width:100% !important;
 		height:100% !important;
 	}
-	
+/*    .valid-feedback {
+    display: none;
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #28a745
+}
+.custom-select.is-valid:focus,
+.form-control.is-valid:focus,
+.was-validated .custom-select:valid:focus,
+.was-validated .form-control:valid:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 .2rem rgba(40, 167, 69, .25)
+}
+.custom-select.is-valid~.valid-feedback,
+
+.form-control.is-valid~.valid-feedback,
+.was-validated .custom-select:valid~.valid-feedback,
+.was-validated .form-control:valid~.valid-feedback {
+    display: block
+}
+.form-check-input.is-valid~.valid-feedback,
+.was-validated .form-check-input:valid~.valid-feedback {
+    display: block
+}
+.custom-control-input.is-valid~.valid-feedback,
+.was-validated .custom-control-input:valid~.valid-feedback{
+    display: block
+}
+.custom-file-input.is-valid~.valid-feedback,
+
+.was-validated .custom-file-input:valid~.valid-feedback {
+    display: block
+}
+.invalid-feedback {
+    display: none;
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545
+}
+.custom-select.is-invalid~.invalid-feedback,
+.form-control.is-invalid~.invalid-feedback,
+.was-validated .custom-select:invalid~.invalid-feedback,
+.was-validated .form-control:invalid~.invalid-feedback {
+    display: block
+}
+.form-check-input.is-invalid~.invalid-feedback,
+.was-validated .form-check-input:invalid~.invalid-feedback {
+    display: block
+}
+.custom-control-input.is-invalid~.invalid-feedback,
+.was-validated .custom-control-input:invalid~.invalid-feedback {
+    display: block
+}
+
+.custom-file-input.is-invalid~.invalid-feedback,
+.was-validated .custom-file-input:invalid~.invalid-feedback{
+    display: block
+}
+*/
 </style>
 </div>
+<?php }?>
