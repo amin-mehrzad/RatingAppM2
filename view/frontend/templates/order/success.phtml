@@ -16,31 +16,32 @@
 
 
                 <p>
-                    How likely are you to recommend our website to a friend or colleague?
+                    How did we do today?
                 </p>
                     <fieldset class="ratingAppClass_rating">
 
                         <input type="radio" id="star5" name="rate" value="5" class="ratingAppVariable"
-                            onChange="ratingAppFunction_caputreFeedback(5, '<?php echo $data['feedbackUID'] ?>')" /><label class="full" for="star5"
-                            title="Awesome - 5 stars">★</label>
+                            onChange="ratingAppFunction_caputreFeedback(5, '<?php echo $data['feedbackUID'] ?>')" /><label class="ratingAppClass_rateLable" for="star5"
+                            title="It was awesome!">&#128515;</label>
                         <input type="radio" id="star4" name="rate" value="4"
-                            onChange="ratingAppFunction_caputreFeedback(4, '<?php echo $data['feedbackUID'] ?>')" /><label class="full" for="star4"
-                            title="Pretty good - 4 stars">★</label>
+                            onChange="ratingAppFunction_caputreFeedback(4, '<?php echo $data['feedbackUID'] ?>')" /><label class="ratingAppClass_rateLable" for="star4"
+                            title="You did good!">&#128578;</label>
                         <input type="radio" id="star3" name="rate" value="3"
-                            onChange="ratingAppFunction_caputreFeedback(3, '<?php echo $data['feedbackUID'] ?>')" /><label class="full" for="star3"
-                            title="Meh - 3 stars">★</label>
+                            onChange="ratingAppFunction_caputreFeedback(3, '<?php echo $data['feedbackUID'] ?>')" /><label class="ratingAppClass_rateLable" for="star3"
+                            title="It was ok!">&#128528;</label>
                         <input type="radio" id="star2" name="rate" value="2"
-                            onChange="ratingAppFunction_caputreFeedback(2, '<?php echo $data['feedbackUID'] ?>')" /><label class="full" for="star2"
-                            title="Kinda bad - 2 stars">★</label>
+                            onChange="ratingAppFunction_caputreFeedback(2, '<?php echo $data['feedbackUID'] ?>')" /><label class="ratingAppClass_rateLable" for="star2"
+                            title="I am Disappointed!">&#128533;</label>
                         <input type="radio" id="star1" name="rate" value="1"
-                            onChange="ratingAppFunction_caputreFeedback(1, '<?php echo $data['feedbackUID'] ?>')" /><label class="full" for="star1"
-                            title="Sucks big time - 1 star">★</label>
+                            onChange="ratingAppFunction_caputreFeedback(1, '<?php echo $data['feedbackUID'] ?>')" /><label class="ratingAppClass_rateLable" for="star1"
+                            title="I am Very Disappointed!">&#128542;</label>
 
                     </fieldset>
+
                     <fieldset class="ratingAppClass_feedback-details" id="review-details" style="position:relative">
                         <label for="nickname" style="margin-top:10px;display:block">Nickname.</label>
                         <input type="text" class="ratingAppClass_details" name="nickName" value="<?php echo $data['nickName'] ?>"/>
-                        <label for="details" style="margin-top:10px;display:block">Review details</label>
+                        <label for="details" style="margin-top:10px;display:block">Tell us how we can make your experiance more enjoyable!</label>
                         <textarea type="text" class="ratingAppClass_details"  id="ratingAppClass_details" rows="3" name="details"
                             style="max-height:120px;display:block;resize:none" onkeydown="ratingAppFormValidate()" onfocus="ratingAppFormValidate()"></textarea>
                             <!-- <div class="invalid-feedback">
@@ -509,7 +510,16 @@ html .ratingAppClass_footer-modal a {
         .ratingAppClass_rating>label {
             color: #ddd ;
             float: right !important;
-            font-size: 60px !important;
+            font-size: 42px !important;
+            padding:2px !important;
+            
+        }
+        .ratingAppClass_rating>label:hover,
+        .ratingAppClass_rating>input:checked+label {
+            color: #ddd ;
+            float: right !important;
+            font-size: 67px !important;
+            padding:0px !important;
         }
     }
 
@@ -521,7 +531,17 @@ html .ratingAppClass_footer-modal a {
         .ratingAppClass_rating>label {
             color: #ddd ;
             float: right !important;
-            font-size: 80px !important;
+            font-size: 65px !important;
+            padding: 17px !important;
+        }
+        .ratingAppClass_rating>label:hover,
+        .ratingAppClass_rating>input:checked+label {
+            color: #ddd ;
+            float: right !important;
+            font-size: 90px !important;
+            padding:0px !important;
+            padding-top: 13px !important;
+
         }
     }
 
@@ -728,6 +748,9 @@ html .ratingAppClass_footer-modal a {
 		width:100% !important;
 		height:100% !important;
 	}
+    .ratingAppClass_rateLable{
+        cursor:pointer;
+    }
 /*    .valid-feedback {
     display: none;
     width: 100%;
