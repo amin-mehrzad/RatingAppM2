@@ -2,10 +2,14 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <!-- <head>
         <script src="https://reviews-ai.ngrok.io/JavaScript/ratingAppScript.js" id="ratingAppScript" wid="5e39f068d9a6e750a37499f7" src_type="url" />
-    </head>
-    <body>
-        <referenceContainer name="content">
+    </head> -->
+    <!-- <body>
+         <referenceContainer name="content">
             <block class="RatingApp\Rate\Block\Frontend\Success" name="ratingApp.rate.success" template="RatingApp_Rate::order/success.phtml" after="-">
+            </block> 
+        </referenceContainer> -->
+        <!--  <referenceContainer name="footer">
+            <block class="RatingApp\Rate\Block\Frontend\Widget" name="ratingApp.rate.widget" template="RatingApp_Rate::widgetBlock/widget.phtml" after="-">
             </block>
         </referenceContainer>
     </body> -->
