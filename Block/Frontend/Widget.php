@@ -145,8 +145,10 @@ class Widget extends \Magento\Framework\View\Element\Template
 
     // }
 
-    public function getWidgetInfo()
+    public function getWebsiteID()
     {
-
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $helper = $objectManager->create('\RatingApp\Rate\Helper\Data');
+        return $helper->ratingApp_getJWTData('websiteID');
     }
 }
