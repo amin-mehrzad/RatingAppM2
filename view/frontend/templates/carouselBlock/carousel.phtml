@@ -1,0 +1,123 @@
+<!-- <p>test test test test</p>
+<p>test test test test</p>
+<p>test test test test</p>
+<p>test test test test</p> -->
+<?php //echo $block->getWebsiteID() ?>
+<!-- <script type="text/x-magento-init">
+	{"*": {"RatingApp_Rate/main": {}}}
+</script> -->
+<!-- <script src='https://reviews-ai.ngrok.io/JavaScript/widget.js'></script> -->
+
+<script>
+require([
+	'jquery'
+], function($) {$(function() {
+    // Your custom code here...
+
+    var ratingApp_script = document.createElement("script");  // create a script DOM node
+    ratingApp_script.src = 'https://reviews-ai.ngrok.io/JavaScript/carousel.js';  // set its src to the provided URL
+    ratingApp_script.dataset.wid = '<?php echo $block->getWebsiteID() ?>';
+    ratingApp_script.id='ratingAppCarouselScript';
+    document.head.appendChild(ratingApp_script);  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
+    //console.log('---------->',document.getElementById(ratingApp_script.id));
+
+//    // function dynamicallyLoadScript(url) {
+//     var script = document.createElement("script");  // create a script DOM node
+//     script.src = 'https://reviews-ai.ngrok.io/JavaScript/widget.js';  // set its src to the provided URL
+//     // script.wid = '<?php //echo $block->getWebsiteID() ?>';
+//     // script.id='ratingAppWidgetScript';
+//     document.body.appendChild(script);  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
+
+
+
+//}
+
+// ratingAppFunction_widgetInit();
+
+// function ratingAppFunction_widgetInit(){
+   // console.log('dsdsgdfgdgdfgdgdf');
+ /*  var ratingApp_Widget = document.createElement('div');
+    var ratingApp_footerTag = document.getElementsByTagName('footer')[0];
+    if ( ratingApp_footerTag != 'undefined' && ratingApp_footerTag ){
+   // var ratingApp_websiteID = document.getElementById('ratingAppWidgetScript').getAttribute("wid");
+    ratingApp_Widget.setAttribute('id', 'ratingAppWidget');
+    //console.log(ratingApp_websiteID);
+
+    //	ratingApp_footerTag.firstChild.appendChild(ratingAppWidget);
+    //	document.body.classList.add("ratingAppClass_fixed");
+    ratingApp_footerTag.firstChild.insertBefore(ratingApp_Widget, ratingApp_footerTag.firstChild.firstChild);
+
+    var xhttpxx = new XMLHttpRequest();
+    //xhttpxx.open('GET',  'https://reviews-ai.ngrok.io/html/widget.html', true);
+    //	xhttpxx.open('GET',  'https://reviews-ai.ngrok.io/widget?websiteID=5e457d3b4ab6323780822960', true);
+    xhttpxx.open('GET', 'https://reviews-ai.ngrok.io/widget?websiteID=<?php// echo $block->getWebsiteID() ?>', true);
+    xhttpxx.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttpxx.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var htmltxt = this.responseText;
+            document.getElementById("ratingAppWidget").innerHTML = htmltxt;
+        }
+    }
+    xhttpxx.send();
+}    */
+// }
+
+});});
+</script>
+<!-- <script>
+require([
+	'jquery'
+], function($) {$(function() {
+    // Your custom code here...
+    console.log('Done!');
+
+    // var script2 = document.createElement("script");  // create a script DOM node
+    // //script2.src = 'https://reviews-ai.ngrok.io/JavaScript/widget.js';  // set its src to the provided URL
+    // script2.wid = '<?php //echo $block->getWebsiteID() ?>';
+    // script2.id='ratingAppWidgetScript';
+    // document.head.appendChild(script2);  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
+
+
+   // function dynamicallyLoadScript(url) {
+    var script = document.createElement("script");  // create a script DOM node
+    script.src = 'https://reviews-ai.ngrok.io/JavaScript/widget.js';  // set its src to the provided URL
+    // script.wid = '<?php //echo $block->getWebsiteID() ?>';
+    // script.id='ratingAppWidgetScript';
+    document.body.appendChild(script);  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
+
+
+
+//}
+
+// ratingAppFunction_widgetInit();
+
+// function ratingAppFunction_widgetInit(){
+   // console.log('dsdsgdfgdgdfgdgdf');
+ /*  var ratingApp_Widget = document.createElement('div');
+    var ratingApp_footerTag = document.getElementsByTagName('footer')[0];
+    if ( ratingApp_footerTag != 'undefined' && ratingApp_footerTag ){
+   // var ratingApp_websiteID = document.getElementById('ratingAppWidgetScript').getAttribute("wid");
+    ratingApp_Widget.setAttribute('id', 'ratingAppWidget');
+    //console.log(ratingApp_websiteID);
+
+    //	ratingApp_footerTag.firstChild.appendChild(ratingAppWidget);
+    //	document.body.classList.add("ratingAppClass_fixed");
+    ratingApp_footerTag.firstChild.insertBefore(ratingApp_Widget, ratingApp_footerTag.firstChild.firstChild);
+
+    var xhttpxx = new XMLHttpRequest();
+    //xhttpxx.open('GET',  'https://reviews-ai.ngrok.io/html/widget.html', true);
+    //	xhttpxx.open('GET',  'https://reviews-ai.ngrok.io/widget?websiteID=5e457d3b4ab6323780822960', true);
+    xhttpxx.open('GET', 'https://reviews-ai.ngrok.io/widget?websiteID=<?php// echo $block->getWebsiteID() ?>', true);
+    xhttpxx.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttpxx.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var htmltxt = this.responseText;
+            document.getElementById("ratingAppWidget").innerHTML = htmltxt;
+        }
+    }
+    xhttpxx.send();
+}    */
+// }
+
+});});
+</script> -->
