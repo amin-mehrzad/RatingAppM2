@@ -8,15 +8,17 @@
         <referenceContainer name="before.body.end">
             <block class="RatingApp\Rate\Block\Frontend\Widget" name="ratingApp.rate.widget" template="RatingApp_Rate::widgetBlock/widget.phtml" before="-">
             </block>
+            <block class="RatingApp\Rate\Block\Frontend\Carousel" name="ratingApp.rate.carousel" template="RatingApp_Rate::carouselBlock/carousel.phtml" after="ratingApp.rate.widget">
+            </block>
         </referenceContainer>
-<!-- <referenceContainer name="before.body.end">
+        <!-- <referenceContainer name="before.body.end">
     <block class="Magento\Framework\View\Element\Text" name="exampleScript">
         <arguments>
             <argument name="text" xsi:type="string"><![CDATA[<script type="text/javascript" src="https://reviews-ai.ngrok.io/JavaScript/widget.js"></script>]]></argument>
         </arguments>
     </block>
 </referenceContainer> -->
-<!-- <referenceContainer name="before.body.end">
+        <!-- <referenceContainer name="before.body.end">
     <block class="Magento\Framework\View\Element\Text" name="ratingAppWidget">
         <arguments>
             <argument name="text" xsi:type="string"><![CDATA[<script type="text/javascript" src="https://reviews-ai.ngrok.io/JavaScript/widget.js"></script>]]></argument>
