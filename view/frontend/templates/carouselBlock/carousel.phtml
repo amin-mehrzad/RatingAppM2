@@ -14,12 +14,12 @@ require([
 ], function($) {$(function() {
     // Your custom code here...
 
-    var ratingApp_script = document.createElement("script");  // create a script DOM node
-    ratingApp_script.src = 'https://reviews-ai.ngrok.io/JavaScript/carousel.js';  // set its src to the provided URL
-    ratingApp_script.dataset.wid = '<?php echo $block->getWebsiteID() ?>';
-    ratingApp_script.id='ratingAppCarouselScript';
-    document.head.appendChild(ratingApp_script);  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
-    //console.log('---------->',document.getElementById(ratingApp_script.id));
+    var ratingApp_carouselScript = document.createElement("script");  // create a script DOM node
+    ratingApp_carouselScript.src = 'https://reviews-ai.ngrok.io/JavaScript/carousel.js';  // set its src to the provided URL
+    ratingApp_carouselScript.dataset.wid = '<?php echo $block->getWebsiteID() ?>';
+    ratingApp_carouselScript.id='ratingAppCarouselScript';
+    document.head.appendChild(ratingApp_carouselScript);  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
+    //console.log('---------->',document.getElementById(ratingApp_carouselScript.id));
 
 //    // function dynamicallyLoadScript(url) {
 //     var script = document.createElement("script");  // create a script DOM node

@@ -8,7 +8,7 @@
         <referenceContainer name="before.body.end">
             <block class="RatingApp\Rate\Block\Frontend\Widget" name="ratingApp.rate.widget" template="RatingApp_Rate::widgetBlock/widget.phtml" before="-">
             </block>
-            <block class="RatingApp\Rate\Block\Frontend\Carousel" name="ratingApp.rate.carousel" template="RatingApp_Rate::carouselBlock/carousel.phtml" after="ratingApp.rate.widget">
+            <block class="RatingApp\Rate\Block\Frontend\Carousel" name="ratingApp.rate.carousel" template="RatingApp_Rate::carouselBlock/carousel.phtml" >
             </block>
         </referenceContainer>
         <!-- <referenceContainer name="before.body.end">
