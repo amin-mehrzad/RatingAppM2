@@ -18,7 +18,7 @@ class ReviewManagement
         Review $review,
         Rating $rating,
         \Magento\Catalog\Model\Product $product,
-       // \Magento\Review\Model\Rating\Option $options,
+        // \Magento\Review\Model\Rating\Option $options,
         \Magento\Review\Model\RatingFactory $ratingFactory
 
         //  \Magento\Review\Model\ResourceModel\Rating\Option\CollectionFactory $ratingCollectionF
@@ -28,7 +28,7 @@ class ReviewManagement
         $this->review = $review;
         $this->rating = $rating;
         $this->product = $product;
-       // $this->options = $options;
+        // $this->options = $options;
         $this->_ratingFactory = $ratingFactory;
 
         // $this->_ratingCollectionF = $ratingCollectionF;
@@ -69,6 +69,9 @@ class ReviewManagement
         $decodedResult = json_decode($result, true);
         $reviewData = $decodedResult["data"]["reviews"];
         // getCID()
+        if (!isset($reviewData['customerID'])) {
+            $reviewData['customerID'] = null;
+        }
         $response = false;
 
         $response = $this->appendReview(
@@ -78,7 +81,7 @@ class ReviewManagement
             $reviewData['reviewDescription'],
             $reviewData['reviewRating'],
             $reviewData['customerID'],
-            1,
+            1, //storeId
             $reviewData['productSKU']
         );
 
@@ -160,7 +163,7 @@ class ReviewManagement
                 $this->rating->setRatingId($ratingOption['rating_id'])
                     ->setReviewId($this->review->getId())
                     ->addOptionVote($index * 5 + $ratingValue, $productId);
-                  error_log("-----------------------------------------------" . $ratingValue);
+                error_log("-----------------------------------------------" . $ratingValue);
             }
         }
 
