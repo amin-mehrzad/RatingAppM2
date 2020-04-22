@@ -22,19 +22,19 @@
 
                         <input type="radio" id="star5" name="rate" value="5" class="ratingAppVariable"
                             onChange="ratingAppFunction_caputreFeedback(5, '<?php echo $data['feedbackUID'] ?>')" /><label class="ratingAppClass_rateLable" for="star5"
-                            title="It was awesome!">&#128515;</label>
+                            title="It was awesome!"><img src="http://reviews-ai.ngrok.io/images/5.png" width="50px" heigth="50px"  class="face"/></label>
                         <input type="radio" id="star4" name="rate" value="4"
                             onChange="ratingAppFunction_caputreFeedback(4, '<?php echo $data['feedbackUID'] ?>')" /><label class="ratingAppClass_rateLable" for="star4"
-                            title="You did good!">&#128578;</label>
+                            title="You did good!"><img src="http://reviews-ai.ngrok.io/images/4.png" width="50px" heigth="50px" class="face"/></label>
                         <input type="radio" id="star3" name="rate" value="3"
                             onChange="ratingAppFunction_caputreFeedback(3, '<?php echo $data['feedbackUID'] ?>')" /><label class="ratingAppClass_rateLable" for="star3"
-                            title="It was ok!">&#128528;</label>
+                            title="It was ok!"><img src="http://reviews-ai.ngrok.io/images/3.png" width="50px" heigth="50px" class="face"/></label>
                         <input type="radio" id="star2" name="rate" value="2"
                             onChange="ratingAppFunction_caputreFeedback(2, '<?php echo $data['feedbackUID'] ?>')" /><label class="ratingAppClass_rateLable" for="star2"
-                            title="I am Disappointed!">&#128533;</label>
+                            title="I am Disappointed!"><img src="http://reviews-ai.ngrok.io/images/2.png" width="50px" heigth="50px" class="face"/></label>
                         <input type="radio" id="star1" name="rate" value="1"
                             onChange="ratingAppFunction_caputreFeedback(1, '<?php echo $data['feedbackUID'] ?>')" /><label class="ratingAppClass_rateLable" for="star1"
-                            title="I am Very Disappointed!">&#128542;</label>
+                            title="I am Very Disappointed!"><img src="http://reviews-ai.ngrok.io/images/1.png" width="50px" heigth="50px" class="face"/></label>
 
                     </fieldset>
 
@@ -501,49 +501,9 @@ html .ratingAppClass_footer-modal a {
 
     }
 
-    @media (max-width:576px) {
-        .ratingApp-ratingAppClass_modal-dialog {
-            max-width: 400px;
-            margin: 1.75rem auto
-        }
+    
 
-        .ratingAppClass_rating>label {
-            color: #ddd ;
-            float: right !important;
-            font-size: 42px !important;
-            padding:2px !important;
-            
-        }
-        .ratingAppClass_rating>label:hover,
-        .ratingAppClass_rating>input:checked+label {
-            color: #ddd ;
-            float: right !important;
-            font-size: 67px !important;
-            padding:0px !important;
-        }
-    }
 
-    @media (min-width:576px) {
-        .ratingApp-ratingAppClass_modal-dialog {
-            max-width: 800px
-        }
-
-        .ratingAppClass_rating>label {
-            color: #ddd ;
-            float: right !important;
-            font-size: 65px !important;
-            padding: 17px !important;
-        }
-        .ratingAppClass_rating>label:hover,
-        .ratingAppClass_rating>input:checked+label {
-            color: #ddd ;
-            float: right !important;
-            font-size: 90px !important;
-            padding:0px !important;
-            padding-top: 13px !important;
-
-        }
-    }
 
     .ratingApp-btn {
         display: inline-block;
@@ -751,6 +711,87 @@ html .ratingAppClass_footer-modal a {
     .ratingAppClass_rateLable{
         cursor:pointer;
     }
+  
+
+.face{
+  -webkit-filter: grayscale(100%); /* Ch 23+, Saf 6.0+, BB 10.0+ */
+  filter: grayscale(100%); /* FF 35+ */
+}
+/* .face:hover,
+.face:active  {
+  transition: filter .5s ease-in-out;
+  -webkit-filter: grayscale(0%); 
+  filter: grayscale(0%); 
+} */
+
+
+@media (min-width:576px) {
+        .ratingApp-ratingAppClass_modal-dialog {
+            max-width: 800px
+        }
+
+        .ratingAppClass_rating>label>img {
+            transition: all .2s ease-in-out;        
+        }
+        .ratingAppClass_rating>label {
+            color: #ddd ;
+            float: right !important;
+            /* font-size: 65px !important; */
+            padding: 17px !important; 
+        }
+        .ratingAppClass_rating>label:hover,
+        .ratingAppClass_rating>label>img:active,
+        .ratingAppClass_rating>label>img:hover,
+        .ratingAppClass_rating>input:checked+label,
+        .ratingAppClass_rating>input:checked+label>img {
+            color: #ddd ;
+            float: right !important;
+           /* font-size: 90px !important;
+            padding:0px !important;
+            padding-top: 13px !important; */
+
+            transition: filter .5s ease-in-out;
+            -webkit-filter: grayscale(0%); /* Ch 23+, Saf 6.0+, BB 10.0+ */
+            filter: grayscale(0%); /* FF 35+ */
+
+            transform: scale(1.1);
+        }
+    }
+
+    @media (max-width:576px) {
+        .ratingApp-ratingAppClass_modal-dialog {
+            max-width: 400px;
+            margin: 1.75rem auto
+        }
+
+        .ratingAppClass_rating>label>img {
+            transition: all .2s ease-in-out;        
+        }
+        .ratingAppClass_rating>label {
+            color: #ddd ;
+            float: right !important;
+            /* font-size: 42px !important; */
+            padding:7px !important;
+            
+        }
+        .ratingAppClass_rating>label:hover,
+        .ratingAppClass_rating>label>img:active,
+        .ratingAppClass_rating>label>img:hover,
+        .ratingAppClass_rating>input:checked+label,
+        .ratingAppClass_rating>input:checked+label>img {
+            color: #ddd ;
+            float: right !important;
+            /* font-size: 67px !important;
+            padding:0px !important; */
+            transition: filter .5s ease-in-out;
+            -webkit-filter: grayscale(0%); /* Ch 23+, Saf 6.0+, BB 10.0+ */
+            filter: grayscale(0%); /* FF 35+ */
+
+            transform: scale(1.1);
+        }
+    }
+
+
 /*    .valid-feedback {
     display: none;
     width: 100%;
